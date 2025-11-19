@@ -43,7 +43,7 @@
     font-weight: 700;
 }
 .sectionPadd{
-    padding: 5rem 0;
+    padding: 1.5rem 0;
 }
 
 
@@ -79,4 +79,20 @@
 }
 .trendingWrapper .trendingItem:hover span{
      transform: scale(1.05);  
+}
+
+.cardWrapper .cardItem{
+    color: rgb(146, 146, 146);
+    position: relative;
+    border-radius: 1rem;
+    padding: 15px;
+    background: linear-gradient(149deg, #192247 0%, #210e17 97%);
+    
+    height: 155px;
+}
+.imgFluid{
+    display: flex;
+    justify-self: self-end;
+    height: 40px;
+    width: 40px;
 }
