@@ -1,15 +1,21 @@
 import React from 'react'
-import Header from './components/Header'
+import { BrowserRouter,Routes,Route } from 'react-router-dom'
 import HomeContent from './components/HomeContent'
-
+import SignIn from './pages/signIn'
+import SignUp from './pages/signUp'
 const App = () => {
   return (
-    <div className='bg-black'>
+    
+    <BrowserRouter>
+<Routes>
+<Route path='/' element={<HomeContent/>}/>
+<Route path='/SignIn' element={<SignIn/>}/>
+<Route path='/SignUp' element={<SignUp/>}/>
 
-<HomeContent/>
-
-    </div>
-  )
+</Routes>
+</BrowserRouter>
+    
+  );
 }
 
 export default App

@@ -11,7 +11,7 @@ import loginImg from "../assets/login.png";
 
 const HomeContent = () => {
   return (
-    <>
+    <div className='bg-black'>
       <div
         style={{
           backgroundImage: `url(${loginImg})`,
@@ -19,6 +19,7 @@ const HomeContent = () => {
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
+       
       >
         <Header />
         <HeroSection/>
@@ -28,7 +29,7 @@ const HomeContent = () => {
       <Faq/>
       <EmailInput/>
       <Footer/>
-    </>
+    </div>
   );
 };
 
