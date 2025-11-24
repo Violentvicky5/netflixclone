@@ -10,14 +10,15 @@ const EmailInput = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     if (!email.trim()) {
       alert("Please enter a valid email.");
       return;
     }
 
-    navigate("/signup");
+    // Pass email to signup page
+    navigate("/signup", { state: { email } });
   };
 
   return (

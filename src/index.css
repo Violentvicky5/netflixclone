@@ -5,6 +5,7 @@
 }
 .loginBtn:hover{
     background-color:rgba(252, 2, 15, 0.918) ;
+    
 }
 .navAlign{
     display: flex;
