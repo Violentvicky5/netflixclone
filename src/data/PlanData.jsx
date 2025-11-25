@@ -1,4 +1,4 @@
-// PlanData.js
+
 const PlanData = [
   {
     id: 1,

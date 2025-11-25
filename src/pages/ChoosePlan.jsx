@@ -23,16 +23,6 @@ const ChoosePlan = () => {
     navigate("/Payment");
   };
 
-  const gradientStyle = {
-    background: "linear-gradient(135deg, #6a11cb, #2575fc)", // same gradient for all top sections
-    color: "white",
-    borderTopLeftRadius: "0.375rem",
-    borderTopRightRadius: "0.375rem",
-    padding: "1rem",
-    fontWeight: "bold",
-    position: "relative",
-  };
-
   return (
     <div>
       <HeaderSignOutBar />
@@ -47,7 +37,7 @@ const ChoosePlan = () => {
             return (
               <div
                 key={plan.id}
-                className="col-6 col-md-3 d-flex" // 2 per row on small, 4 per row md+
+                className="col-6 col-md-3 d-flex" 
                 onClick={() => handleSelect(plan)}
                 style={{ cursor: "pointer" }}
               >
@@ -55,9 +45,9 @@ const ChoosePlan = () => {
                   className={`card flex-fill ${
                     isSelected ? "border-primary shadow" : "border-secondary"
                   }`}
-                  style={{ minHeight: "400px" }} // equal height cards
+                  style={{ minHeight: "400px" }} 
                 >
-                  <div style={gradientStyle}>
+                  <div className="gradientStyle">
                     {plan.isPopular && (
                       <span
                         className="badge   position-absolute"
@@ -82,23 +72,23 @@ const ChoosePlan = () => {
 
                   <ul className="list-group list-group-flush flex-grow-1">
                     <li className="list-group-item">
-                      <strong>Monthly price:</strong> {plan.price}
+                      <strong>Monthly price:</strong><p>{plan.price}</p> 
                     </li>
                     <li className="list-group-item">
-                      <strong>Video Quality:</strong> {plan.videoQuality}
+                      <strong>Video Quality:</strong> <p>{plan.videoQuality}</p>
                     </li>
                     <li className="list-group-item">
-                      <strong>Resolution:</strong> {plan.quality}
+                      <strong>Resolution:</strong> <p>{plan.quality}</p>
                     </li>
                     <li className="list-group-item">
-                      <strong>Supported devices:</strong> {plan.devices}
+                      <strong>Supported devices:</strong> <p>{plan.devices}</p>
                     </li>
                     <li className="list-group-item">
                       <strong>Devices your household can watch at the same
-                      time:</strong> {plan.screens}
+                      time:</strong> <p>{plan.screens}</p>
                     </li>
                     <li className="list-group-item">
-                      <strong>Download devices:</strong> {plan.downloads}
+                      <strong>Download devices:</strong> <p>{plan.downloads}</p>
                     </li>
                   </ul>
                 </div>

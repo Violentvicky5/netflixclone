@@ -11,7 +11,7 @@ const Header = () => {
         <a href="#"><img src={logoImg} alt="logo" style={{height:"60px"}} /></a>
         
   
-            <button className='loginBtn btn text-white' onClick={()=>navigate("/signIn")}>Sign In</button>
+            <button className='loginBtn btn text-white' onClick={()=>navigate("/signin")}>Sign In</button>
 
      
         

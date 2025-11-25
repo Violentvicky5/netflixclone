@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomeContent from "./components/HomeContent";
-import SignIn from "./pages/signIn";
+import Signin from "./pages/Signin"
 import SignUp from "./pages/signUp";
 import SignUp2 from "./pages/signUp2";
-import SignUp3 from "./pages/Signup3";
+import SignUp3 from "./pages/SignUp3";
 import ChoosePlan from "./pages/ChoosePlan";
 import Payment from "./pages/Payment";
 const App = () => {
@@ -12,7 +12,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomeContent />} />
-        <Route path="/SignIn" element={<SignIn />} />
+        <Route path="/Signin" element={<Signin />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/SignUp2" element={<SignUp2 />} />
         <Route path="/SignUp3" element={<SignUp3 />} />
