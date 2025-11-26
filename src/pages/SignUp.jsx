@@ -1,35 +1,61 @@
-import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { EmailContext } from "../context/EmailContext";
 
 const SignUp = () => {
-  const location = useLocation();
   const navigate = useNavigate();
+  const { email, setEmail } = useContext(EmailContext);
 
-  const [email, setEmail] = useState(location.state?.email || "");
   const [password, setPassword] = useState("");
-
+  const [loading, setLoading] = useState(false); // <-- Prevents double submit
+const API = import.meta.env.VITE_BACKEND_URL;
   const handlePwd = (e) => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (loading) return;          // <-- Prevent double click
+    setLoading(true);
 
     if (!email.trim()) {
       alert("Email cannot be empty");
+      setLoading(false);
       return;
     }
-
     if (!password.trim()) {
       alert("Password cannot be empty");
+      setLoading(false);
       return;
     }
 
-    navigate("/signUp2", {
-      state: { email},
-    });
+    try {
+      const result = await fetch(`${API}/register`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ email, password }),
+});
+
+      const data = await result.json();
+
+      if (!result.ok) {
+        alert(data.msg); // Example: "User already exists"
+        setLoading(false);
+        return;
+      }
+
+      alert("Verification email sent. Check your inbox!");
+      navigate("/signUp2");
+
+    } catch (error) {
+      console.log(error);
+      alert("Error registering user");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -65,13 +91,14 @@ const SignUp = () => {
 
           <button
             type="submit"
+            disabled={loading} // <-- disables button
             style={{
               width: "100%",
               backgroundColor: "rgba(252, 2, 15, 0.918)",
             }}
             className="text-white btn"
           >
-            Next
+            {loading ? "Please wait..." : "Next"} {/* Button text updates */}
           </button>
         </form>
       </div>

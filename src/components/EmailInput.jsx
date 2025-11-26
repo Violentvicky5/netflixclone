@@ -1,24 +1,29 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { EmailContext } from "../context/EmailContext";
 
 const EmailInput = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const { setEmail } = useContext(EmailContext); // get setter from context
+  const [localEmail, setLocalEmail] = useState("");
 
   const handleChange = (e) => {
-    setEmail(e.target.value);
+    setLocalEmail(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!email.trim()) {
+    if (!localEmail.trim()) {
       alert("Please enter a valid email.");
       return;
     }
 
-    // Pass email to signup page
-    navigate("/signup", { state: { email } });
+    // Save email in context
+    setEmail(localEmail);
+
+    // Navigate to signup page
+    navigate("/signup"); // no need to pass state
   };
 
   return (
@@ -32,7 +37,7 @@ const EmailInput = () => {
           className="form-control me-2 text-white emailInput"
           type="email"
           placeholder="Email Address"
-          value={email}
+          value={localEmail}
           onChange={handleChange}
           style={{
             height: "3rem",

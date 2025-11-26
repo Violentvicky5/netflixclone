@@ -7,6 +7,7 @@ import SignUp2 from "./pages/SignUp2";
 import SignUp3 from "./pages/SignUp3";
 import ChoosePlan from "./pages/ChoosePlan";
 import Payment from "./pages/Payment";
+import WelcomePage from "./pages/WelcomePage";
 const App = () => {
   return (
     <BrowserRouter>
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/SignUp3" element={<SignUp3 />} />
         <Route path="/ChoosePlan" element={<ChoosePlan />} />
          <Route path="/Payment" element={<Payment />} />
+         <Route path="/WelcomePage" element={<WelcomePage />} />
 
  
       </Routes>

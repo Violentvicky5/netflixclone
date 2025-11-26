@@ -1,12 +1,12 @@
-import React from "react";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import HeaderSignOutBar from "../components/HeaderSignOutBar";
+import { EmailContext } from "../context/EmailContext";
 
 const SignUp2 = () => {
-    const navigate = useNavigate();
-  const location = useLocation();
-  const email = location.state?.email || ""; // get email passed from step 1
+  const navigate = useNavigate();
+  const { email } = useContext(EmailContext); // get email from context
 
   return (
     <div>
@@ -17,20 +17,24 @@ const SignUp2 = () => {
         <h3>Great, now let's verify your Email</h3>
         <p className="para mt-0">Just a few more steps and you're done!</p>
 
-        <p className="para mt-0">Click the link we sent to <strong>{email} </strong>to verify</p>
-      <p className="para mt-0">verifying your email will improve your account security and help you receive importat Netflix communication</p>
-      
-      <button
-            type="submit"
-            style={{
-              width: "100%",
-              backgroundColor: "rgba(252, 2, 15, 0.918)",
-            }}
-            className="text-white btn"
-            onClick={()=>navigate("/signUp3")}
-          >
-            Done
-          </button>
+        <p className="para mt-0">
+          Click the link we sent to <strong>{email}</strong> to verify
+        </p>
+        <p className="para mt-0">
+          Verifying your email will improve your account security and help you receive important Netflix communication.
+        </p>
+
+        <button
+          type="button"
+          style={{
+            width: "100%",
+            backgroundColor: "rgba(252, 2, 15, 0.918)",
+          }}
+          className="text-white btn"
+          onClick={() => navigate("/signUp3")}
+        >
+          Done
+        </button>
       </div>
 
       <div
