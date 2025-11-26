@@ -9,7 +9,7 @@ const SignUp = () => {
   const { email, setEmail } = useContext(EmailContext);
 
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false); // <-- Prevents double submit
+  const [loading, setLoading] = useState(false); 
 const API = import.meta.env.VITE_BACKEND_URL;
   const handlePwd = (e) => {
     setPassword(e.target.value);
@@ -18,7 +18,7 @@ const API = import.meta.env.VITE_BACKEND_URL;
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (loading) return;          // <-- Prevent double click
+    if (loading) return;          
     setLoading(true);
 
     if (!email.trim()) {
@@ -42,7 +42,7 @@ const API = import.meta.env.VITE_BACKEND_URL;
       const data = await result.json();
 
       if (!result.ok) {
-        alert(data.msg); // Example: "User already exists"
+        alert(data.msg); 
         setLoading(false);
         return;
       }
