@@ -73,6 +73,7 @@ const handleSubmit = async (e) => {
             className="form-control mb-3"
             placeholder="Enter your email"
             onChange={handleChange}
+            value={formdata.email}
             required
           />
 
@@ -82,6 +83,7 @@ const handleSubmit = async (e) => {
             className="form-control mb-3"
             placeholder="Enter your password"
             onChange={handleChange}
+             value={formdata.password}
             required
           />
 
@@ -96,8 +98,14 @@ const handleSubmit = async (e) => {
             <p  className="text-light">or</p>
           </div>
           <div className="text-center">
-            <a href="#" className="para text-light">Forgot password?</a>
-          </div>
+            <button
+          type="button"
+          className="text-white btn para hovr"
+          onClick={() => navigate("/ForgotPassword")}
+        >
+         Forgot Password
+        </button>
+                 </div>
 
           <p className="para mt-3 text-light">
             New to Netflix? <a href="#" className="text-primary">Sign Up now</a>

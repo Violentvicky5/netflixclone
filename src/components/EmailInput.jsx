@@ -19,11 +19,11 @@ const EmailInput = () => {
       return;
     }
 
-    // Save email in context
+   
     setEmail(localEmail);
 
-    // Navigate to signup page
-    navigate("/signup"); // no need to pass state
+   
+    navigate("/signup"); 
   };
 
   return (

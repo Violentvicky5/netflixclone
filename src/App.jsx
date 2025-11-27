@@ -9,6 +9,8 @@ import ChoosePlan from "./pages/ChoosePlan";
 import Payment from "./pages/Payment";
 import WelcomePage from "./pages/WelcomePage";
 import Userdashboard from "./pages/Userdashboard";
+import ForgotPassword from "./pages/ForgotPassword";
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -22,6 +24,9 @@ const App = () => {
         <Route path="/Payment" element={<Payment />} />
         <Route path="/WelcomePage" element={<WelcomePage />} />
         <Route path="/Userdashboard" element={<Userdashboard />}></Route>
+              <Route path="/ForgotPassword" element={<ForgotPassword />}></Route>
+
+      
       </Routes>
     </BrowserRouter>
   );

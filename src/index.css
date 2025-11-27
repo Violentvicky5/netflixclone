@@ -7,6 +7,13 @@
     background-color:rgba(252, 2, 15, 0.918) ;
     
 }
+.hovr{
+    width:100%;
+    color: #2575fc !important;
+}
+.hovr:hover{
+    color:rgb(83, 210, 248) !important;
+}
 .navAlign{
     display: flex;
     justify-content: space-between;
@@ -112,3 +119,5 @@
     font-weight: bold;
     position: relative;
   };
+
+  
