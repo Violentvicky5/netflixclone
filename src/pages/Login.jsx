@@ -55,7 +55,7 @@ const handleSubmit = async (e) => {
       <Header/>
 
       
-      <div className="d-flex justify-content-center align-items-center flex-grow-1 px-3">
+      <div className="d-flex justify-content-center align-items-center flex-grow-1 px-3 mb-5">
         <form
           onSubmit={handleSubmit}
           className="p-4 rounded"
