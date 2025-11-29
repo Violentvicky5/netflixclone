@@ -6,36 +6,39 @@ import loginImg from "../assets/login.png";
 
 const ForgotPassword = () => {
   const [formdata, setFormdata] = useState({ email: "" });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormdata({ ...formdata, [e.target.name]: e.target.value });
   };
+
   const API = import.meta.env.VITE_BACKEND_URL;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formdata);
+    if (loading) return;
+    setLoading(true);
 
     try {
       const res = await fetch(`${API}/forgotpassword`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formdata),
       });
-      const data = await res.json();
-    console.log(data);
 
-    if (res.ok) {
-      alert("password reset link sent Successfully");
-      setFormdata({email:""});
-     
-    } else {
-      alert(data.msg || "Failed to send reset pwd link");
-    }
+      const data = await res.json();
+
+      if (res.ok) {
+        alert("Password reset link sent successfully");
+        setFormdata({ email: "" });
+      } else {
+        alert(data.msg || "Failed to send reset password link");
+      }
     } catch (error) {
-       console.error(error);
-    alert("Server Error");
+      console.error(error);
+      alert("Server Error");
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -77,8 +80,9 @@ const ForgotPassword = () => {
             type="submit"
             className="btn w-100 text-light mb-3"
             style={{ backgroundColor: "rgba(218,6,17,0.918)" }}
+            disabled={loading}
           >
-            Send Reset link
+            {loading ? "Please wait..." : "Send Reset link"}
           </button>
         </form>
       </div>

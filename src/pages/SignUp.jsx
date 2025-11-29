@@ -91,14 +91,14 @@ const API = import.meta.env.VITE_BACKEND_URL;
 
           <button
             type="submit"
-            disabled={loading} // <-- disables button
+            disabled={loading} 
             style={{
               width: "100%",
               backgroundColor: "rgba(252, 2, 15, 0.918)",
             }}
             className="text-white btn"
           >
-            {loading ? "Please wait..." : "Next"} {/* Button text updates */}
+            {loading ? "Please wait..." : "Next"} 
           </button>
         </form>
       </div>
