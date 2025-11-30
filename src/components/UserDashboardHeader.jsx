@@ -8,14 +8,45 @@ import {
   FormControl,
 } from "react-bootstrap";
 import logoImg from "../assets/logo.png";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const UserDashboardHeader = () => {
+  const navigate = useNavigate();
+  const API = import.meta.env.VITE_BACKEND_URL;
+  const signOut = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      let result = await fetch(`${API}/signOut`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (result.ok) {
+        localStorage.removeItem("token");
+        alert("successfully logedOut")
+        navigate("/Login");
+      } else {
+        console.error("Sign out failed");
+      }
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
+
   return (
-    <Navbar variant="dark" style={{ backgroundColor:"rgba(0,0,0,0.3)" }}>
+    <Navbar variant="dark" style={{ backgroundColor: "rgba(0,0,0,0.3)" }}>
       <Container className="d-flex align-items-center">
         <div className="d-flex align-items-center">
           <Navbar.Brand href="#" className="me-2">
-            <img src={logoImg} alt="logo" style={{ height: "30px", filter: "brightness(1.2)"  }} />
+            <img
+              src={logoImg}
+              alt="logo"
+              style={{ height: "30px", filter: "brightness(1.2)" }}
+            />
           </Navbar.Brand>
 
           <div className="d-lg-none">
@@ -66,7 +97,11 @@ const UserDashboardHeader = () => {
               type="text"
               placeholder="Search"
               className="form-control ps-4"
-              style={{ height: "32px", border: "1px solid grey",color:"black" }}
+              style={{
+                height: "32px",
+                border: "1px solid grey",
+                color: "black",
+              }}
             />
           </div>
 
@@ -75,6 +110,14 @@ const UserDashboardHeader = () => {
             alt="profile"
             style={{ height: "32px", borderRadius: "4px", cursor: "pointer" }}
           />
+          <button
+            type="button "
+            className="btn loginBtn text-white"
+            style={{ opacity: "1.5" }}
+            onClick={signOut}
+          >
+            SignOut
+          </button>
         </div>
       </Container>
     </Navbar>

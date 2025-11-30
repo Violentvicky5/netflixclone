@@ -1,29 +1,68 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import UserDashboardHeader from "./UserDashboardHeader";
-import Poster from "../assets/home.jpg";
 import logo from "../assets/logo.png";
+import { tmdbFetch } from "../api/tmdb";
 
 const UserDashboardBanner = () => {
+  const [movies, setMovies] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
 
-  const toggleMute = () => {
-    setIsMuted(!isMuted);
-  };
+  const toggleMute = () => setIsMuted(!isMuted);
+
+  // Fetch Top Rated Movies
+  useEffect(() => {
+    const loadMovies = async () => {
+      const data = await tmdbFetch("/movie/top_rated?language=en-US&page=2");
+      setMovies(data.results);
+    };
+    loadMovies();
+  }, []);
+
+  // Auto change movie every 7 seconds
+ useEffect(() => {
+  if (movies.length === 0) return;
+
+  const interval = setInterval(() => {
+    setCurrentIndex((prev) => {
+      let newIndex = prev;
+
+      // ensure new random index is different from previous
+      while (newIndex === prev) {
+        newIndex = Math.floor(Math.random() * movies.length);
+      }
+
+      return newIndex;
+    });
+  }, 15000);
+
+  return () => clearInterval(interval);
+}, [movies]);
+
+
+  if (movies.length === 0) {
+    return <div>Loading...</div>;
+  }
+
+  const movie = movies[currentIndex];
+  const backdropUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
 
   return (
     <div
       className="banner-bg d-flex flex-column justify-content-end text-start p-4"
       style={{
-        backgroundImage: `url(${Poster})`,
+        backgroundImage: `url(${backdropUrl})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         position: "relative",
         color: "#fff",
+        height: "85vh",
+        width: "100%",
+        transition: "background-image 1s ease-in-out",
       }}
     >
-      {/* ⭐ HEADER INSIDE BANNER AND ON TOP ⭐ */}
       <div className="banner-header">
         <UserDashboardHeader />
       </div>
@@ -31,11 +70,11 @@ const UserDashboardBanner = () => {
       <div className="container">
         <div>
           <img src={logo} alt="logo" style={{ height: "20px" }} />
-          <h1 className="fw-bold mb-3">stranger things</h1>
+          <h1 className="fw-bold mb-3">{movie.title}</h1>
         </div>
 
-        {/* CONTENT */}
         <div className="d-flex justify-content-between">
+          {/* Buttons */}
           <div className="d-flex flex-row">
             <Button variant="light" className="me-2 fw-bold">
               Play
@@ -45,10 +84,8 @@ const UserDashboardBanner = () => {
             </Button>
           </div>
 
-          {/* 🔊 MUTE / UNMUTE TOGGLE */}
+          {/* Volume + Rating */}
           <div className="d-flex align-items-center" style={{ gap: "10px" }}>
-            
-            {/* CIRCLE ICON - CLICK TO TOGGLE */}
             <div
               onClick={toggleMute}
               className="d-flex justify-content-center align-items-center"
@@ -70,7 +107,6 @@ const UserDashboardBanner = () => {
               ></i>
             </div>
 
-            {/* BAR + UA 16+ */}
             <div
               className="d-flex align-items-center"
               style={{ backgroundColor: "rgba(0,0,0,0.3)", gap: "10px" }}
@@ -88,7 +124,10 @@ const UserDashboardBanner = () => {
                 |
               </span>
 
-              <p className="fw-bold m-0">UA 16+</p>
+<p className="fw-bold m-0">
+  {movie.vote_average >= 9 ? "UA 18+" : "UA 16+"}
+</p>
+
             </div>
           </div>
         </div>

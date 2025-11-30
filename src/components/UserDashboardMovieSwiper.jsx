@@ -11,7 +11,7 @@ const UserDashboardMovieSwiper = ({ title, movies = [] }) => {
   const safeId = title.replace(/\s+/g, "-").toLowerCase();
 
   return (
-    <div className="movie-row mb-5">
+    <div className="container movie-row mb-5">
 
       <h3 className="text-white mb-3">{title}</h3>
 

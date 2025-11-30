@@ -121,24 +121,24 @@
     position: relative;
   };
 
- /* Parent container must fill full width */
+
 .banner-container {
   width: 100%;
   position: relative;
-  overflow: visible !important; /* prevent clipping */
+  overflow: visible !important; 
 }
 
 /* Banner image area */
 .banner-bg {
   width: 100%;
- position: relative;
-  height: 70vh;           /* Netflix standard size */
+  height: 80vh; 
   background-size: cover !important;
-  background-position: top center !important;
+  background-position: center  !important;
   background-repeat: no-repeat !important;
+  position: relative;
 }
 
-/* Prevent Bootstrap from clipping */
+
 .banner-container * {
   min-height: 0;
   min-width: 0;
@@ -149,12 +149,25 @@
   left: 0;
   width: 100%;
 }
-/* Responsive (optional) */
+
 @media (max-width: 768px) {
-  .banner-bg {
+  .banner-bg  {
     height: 60vh;
   }
 }
+@media (min-width: 992px) {  /* Large screens */
+  .banner-bg {
+    height: 90vh;  /* Fill more height instead of cropping */
+    background-position: center top !important;
+  }
+}
+
+@media (min-width: 1200px) { /* Extra large screens */
+  .banner-bg {
+    height: 100vh; /* Full size like Netflix */
+  }
+}
+
 .head {
   color: #807e7e;
 }
