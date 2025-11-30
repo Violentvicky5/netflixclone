@@ -1,6 +1,6 @@
 .loginBtn{
     background-color: rgba(218, 6, 17, 0.918);
-    width: 75px;
+    width: 85px;
     text-align: center;
 }
 .loginBtn:hover{
@@ -113,6 +113,7 @@
 .gradientStyle {
     background: linear-gradient(135deg, #6a11cb, #2575fc); 
     color: white;
+   
     border-top-left-radius: 0.375rem;
     border-top-right-radius: 0.375rem;
     padding: 1rem;
@@ -120,4 +121,120 @@
     position: relative;
   };
 
+ /* Parent container must fill full width */
+.banner-container {
+  width: 100%;
+  position: relative;
+  overflow: visible !important; /* prevent clipping */
+}
+
+/* Banner image area */
+.banner-bg {
+  width: 100%;
+ position: relative;
+  height: 70vh;           /* Netflix standard size */
+  background-size: cover !important;
+  background-position: top center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* Prevent Bootstrap from clipping */
+.banner-container * {
+  min-height: 0;
+  min-width: 0;
+}
+.banner-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+/* Responsive (optional) */
+@media (max-width: 768px) {
+  .banner-bg {
+    height: 60vh;
+  }
+}
+.head {
+  color: #807e7e;
+}
+.movie-row {
+   padding: 10px 0;
+  position: relative;
+  z-index: 9999;
+}
+.movie-row h3 {
+  color: white !important;
+  z-index: 1000;
   
+}
+
+.movie-swiper .swiper-button-prev,
+.movie-swiper .swiper-button-next {
+  color: white;
+}
+
+.movie-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 6px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.movie-slide:hover .movie-img {
+  transform: scale(1.15);
+  z-index: 10;
+  transition: 0.25s;
+}
+/* Pagination container */
+.pagination-wrapper {
+  display: flex;
+   /* moves pagination to the right */
+  width: 100%;
+  margin-top: 6px;
+}
+.custom-pagination {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  position: relative;
+  z-index: 99999 !important;
+  margin-top: 8px;
+}
+
+
+/* The dash bullets */
+.dash-pagination {
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.5) !important;
+  cursor: pointer;
+    opacity: 0.5;
+  transition: 0.2s ease;
+}
+
+
+/* Active dash */
+.swiper-pagination-bullet-active.dash-pagination {
+  color: white !important;
+  transform: scale(1.4);
+}
+.swiper-pagination-bullet-active {
+  opacity: 1 !important;
+}
+
+/* REMOVE default bullet styling so dash becomes visible */
+.swiper-pagination-bullet {
+  background: transparent !important;
+  width: auto !important;
+  height: auto !important;
+  opacity: 1 !important;
+  border-radius: 0 !important;
+  margin: 0 6px !important;
+}
+.dash-pagination {
+  font-size: 24px;
+  color: rgba(255, 255, 255, 0.5) !important;
+  transition: 0.25s ease;
+  cursor: pointer;
+}
