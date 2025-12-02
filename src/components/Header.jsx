@@ -8,11 +8,13 @@ const Header = () => {
     <>
     <nav className=''>
         <div className='container navAlign'>
+       <div>
         <a href="#"><img src={logoImg} alt="logo" style={{height:"60px"}} /></a>
-        
-  
-            <button className='loginBtn btn text-white' onClick={()=>navigate("/Login")}>Sign In</button>
-
+        </div>
+  <div>
+            <button className='loginBtn btn text-white m-1' onClick={()=>navigate("/Login")}>Sign In</button>
+             <button className='loginBtn btn text-white' onClick={()=>navigate("/AdminLoginPage")}>Admin</button>
+</div>
      
         
     

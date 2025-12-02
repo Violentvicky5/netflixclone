@@ -11,35 +11,32 @@ const UserDashboardBanner = () => {
 
   const toggleMute = () => setIsMuted(!isMuted);
 
-  // Fetch Top Rated Movies
   useEffect(() => {
     const loadMovies = async () => {
       const data = await tmdbFetch("/movie/top_rated?language=en-US&page=2");
       setMovies(data.results);
+     
     };
     loadMovies();
   }, []);
 
-  // Auto change movie every 7 seconds
- useEffect(() => {
-  if (movies.length === 0) return;
+  useEffect(() => {
+    if (movies.length === 0) return;
 
-  const interval = setInterval(() => {
-    setCurrentIndex((prev) => {
-      let newIndex = prev;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => {
+        let newIndex = prev;
 
-      // ensure new random index is different from previous
-      while (newIndex === prev) {
-        newIndex = Math.floor(Math.random() * movies.length);
-      }
+        while (newIndex === prev) {
+          newIndex = Math.floor(Math.random() * movies.length);
+        }
 
-      return newIndex;
-    });
-  }, 15000);
+        return newIndex;
+      });
+    }, 15000);
 
-  return () => clearInterval(interval);
-}, [movies]);
-
+    return () => clearInterval(interval);
+  }, [movies]);
 
   if (movies.length === 0) {
     return <div>Loading...</div>;
@@ -72,9 +69,10 @@ const UserDashboardBanner = () => {
           <img src={logo} alt="logo" style={{ height: "20px" }} />
           <h1 className="fw-bold mb-3">{movie.title}</h1>
         </div>
-
+<div>
+  <p className="para" style={{height:"100px",width:"80%",overflow: "auto"}}>{movie.overview}</p>
+</div>
         <div className="d-flex justify-content-between">
-          {/* Buttons */}
           <div className="d-flex flex-row">
             <Button variant="light" className="me-2 fw-bold">
               Play
@@ -84,7 +82,6 @@ const UserDashboardBanner = () => {
             </Button>
           </div>
 
-          {/* Volume + Rating */}
           <div className="d-flex align-items-center" style={{ gap: "10px" }}>
             <div
               onClick={toggleMute}
@@ -124,10 +121,9 @@ const UserDashboardBanner = () => {
                 |
               </span>
 
-<p className="fw-bold m-0">
-  {movie.vote_average >= 9 ? "UA 18+" : "UA 16+"}
-</p>
-
+              <p className="fw-bold m-0">
+                {movie.vote_average >= 9 ? "UA 18+" : "UA 16+"}
+              </p>
             </div>
           </div>
         </div>

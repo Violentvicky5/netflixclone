@@ -9,8 +9,12 @@ const SignUp = () => {
   const { email, setEmail } = useContext(EmailContext);
 
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false); 
-const API = import.meta.env.VITE_BACKEND_URL;
+  const [loading, setLoading] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  const API = import.meta.env.VITE_BACKEND_URL;
+
   const handlePwd = (e) => {
     setPassword(e.target.value);
   };
@@ -18,38 +22,52 @@ const API = import.meta.env.VITE_BACKEND_URL;
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (loading) return;          
+    if (loading) return;
     setLoading(true);
 
+    
+    setEmailError("");
+    setPasswordError("");
+
+   
+    let valid = true;
     if (!email.trim()) {
-      alert("Email cannot be empty");
-      setLoading(false);
-      return;
+      setEmailError("Email cannot be empty");
+      valid = false;
     }
     if (!password.trim()) {
-      alert("Password cannot be empty");
+      setPasswordError("Password cannot be empty");
+      valid = false;
+    }
+    if (!valid) {
       setLoading(false);
       return;
     }
 
     try {
       const result = await fetch(`${API}/register`, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ email, password }),
-});
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
       const data = await result.json();
 
       if (!result.ok) {
-        alert(data.msg); 
+      
+        if (data.msg?.toLowerCase().includes("email")) {
+          setEmailError(data.msg);
+        } else if (data.msg?.toLowerCase().includes("password")) {
+          setPasswordError(data.msg);
+        } else {
+          alert(data.msg || "Registration error");
+        }
         setLoading(false);
         return;
       }
 
       alert("Verification email sent. Check your inbox!");
       navigate("/signUp2");
-
     } catch (error) {
       console.log(error);
       alert("Error registering user");
@@ -72,33 +90,45 @@ const API = import.meta.env.VITE_BACKEND_URL;
           <div className="mb-3">
             <input
               type="email"
-              className="form-control"
+              className="form-control mb-1"
               placeholder="Email Address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              style={{
+                border: emailError ? "2px solid red" : "1px solid #ccc",
+              }}
             />
+            {emailError && (
+              <p className="text-danger mb-2">{emailError}</p>
+            )}
           </div>
 
           <div className="mb-3">
             <input
               type="password"
-              className="form-control"
+              className="form-control mb-1"
               placeholder="Password"
               value={password}
               onChange={handlePwd}
+              style={{
+                border: passwordError ? "2px solid red" : "1px solid #ccc",
+              }}
             />
+            {passwordError && (
+              <p className="text-danger mb-2">{passwordError}</p>
+            )}
           </div>
 
           <button
             type="submit"
-            disabled={loading} 
+            disabled={loading}
             style={{
               width: "100%",
               backgroundColor: "rgba(252, 2, 15, 0.918)",
             }}
             className="text-white btn"
           >
-            {loading ? "Please wait..." : "Next"} 
+            {loading ? "Please wait..." : "Next"}
           </button>
         </form>
       </div>

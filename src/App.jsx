@@ -10,7 +10,8 @@ import Payment from "./pages/Payment";
 import WelcomePage from "./pages/WelcomePage";
 import Userdashboard from "./pages/Userdashboard";
 import ForgotPassword from "./pages/ForgotPassword";
-
+import AdminLoginPage from "./pages/AdminLoginPage";
+import AdminDashboard from "./pages/AdminDashboard";
 const App = () => {
   return (
     <BrowserRouter>
@@ -24,8 +25,9 @@ const App = () => {
         <Route path="/Payment" element={<Payment />} />
         <Route path="/WelcomePage" element={<WelcomePage />} />
         <Route path="/Userdashboard" element={<Userdashboard />}></Route>
-              <Route path="/ForgotPassword" element={<ForgotPassword />}></Route>
-
+        <Route path="/ForgotPassword" element={<ForgotPassword />}></Route>
+        <Route path="/AdminLoginPage" element={<AdminLoginPage />}></Route>
+      <Route path="/AdminDashboard" element={<AdminDashboard/>}></Route>
       
       </Routes>
     </BrowserRouter>

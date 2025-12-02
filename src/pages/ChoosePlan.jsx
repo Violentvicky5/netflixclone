@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import HeaderSignOutBar from "../components/HeaderSignOutBar";
 import Footer from "../components/Footer";
 import { PlanContext } from "../context/PlanContext";
-import PlanData from "../data/PlanData";
+import {PlanData} from "../data/PlanData";
 import { useNavigate } from "react-router-dom";
 
 const ChoosePlan = () => {

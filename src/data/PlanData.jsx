@@ -1,5 +1,4 @@
-
-const PlanData = [
+export const PlanData = [
   {
     id: 1,
     name: "Mobile",
@@ -58,4 +57,9 @@ const PlanData = [
   },
 ];
 
-export default PlanData;
+export const Admin = [
+  {
+    email: "okadmin123@gmail.com",
+    password: "adminentry",
+  },
+];

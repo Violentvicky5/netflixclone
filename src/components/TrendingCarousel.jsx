@@ -13,10 +13,10 @@ const TrendingCarousel = () => {
 
         <div className="container mt-3">
           <Swiper
-            spaceBetween={10}     // gap between cards
-            slidesPerView={5}     // show 5 items in a row
-            loop={false}           // infinite scroll
-            grabCursor={true}     // cursor looks nice
+            spaceBetween={10}    
+            slidesPerView={5}    
+            loop={false}           
+            grabCursor={true}     
           >
             {[
               1,2,3,4,5,6,7,8,9,10
