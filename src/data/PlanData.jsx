@@ -57,9 +57,3 @@ export const PlanData = [
   },
 ];
 
-export const Admin = [
-  {
-    email: "okadmin123@gmail.com",
-    password: "adminentry",
-  },
-];

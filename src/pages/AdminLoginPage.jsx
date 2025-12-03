@@ -3,9 +3,10 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import loginImg from "../assets/login.png";
 import { useNavigate } from "react-router-dom";
-import { Admin } from "../data/PlanData";
 
 const AdminLoginPage = () => {
+  const Oemail=import.meta.env.VITE_ADMIN_EMAIL
+  const Opassword=import.meta.env.VITE_ADMIN_PASSWORD
   const [formdata, setFormdata] = useState({ email: "", password: "" });
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -19,7 +20,6 @@ const AdminLoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const admin = Admin[0];
     let valid = true;
 
    
@@ -27,19 +27,19 @@ const AdminLoginPage = () => {
     setPasswordError("");
 
    
-    if (formdata.email !== admin.email) {
+    if (formdata.email !== Oemail) {
       setEmailError("Please enter correct email");
       valid = false;
     }
 
-    if (formdata.password !== admin.password) {
+    if (formdata.password !== Opassword) {
       setPasswordError("Please enter correct password");
       valid = false;
     }
 
     if (!valid) return;
 
-    navigate("/admindashboard");
+    navigate("/DashboardLayout");
   };
 
   return (
