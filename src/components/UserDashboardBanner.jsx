@@ -2,38 +2,43 @@ import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import UserDashboardHeader from "./UserDashboardHeader";
 import logo from "../assets/logo.png";
-import { tmdbFetch } from "../api/tmdb";
 
 const UserDashboardBanner = () => {
   const [movies, setMovies] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
 
+  const API = import.meta.env.VITE_BACKEND_URL;
+
   const toggleMute = () => setIsMuted(!isMuted);
 
+  // Fetch movies from DB instead of TMDB
   useEffect(() => {
     const loadMovies = async () => {
-      const data = await tmdbFetch("/movie/top_rated?language=en-US&page=2");
-      setMovies(data.results);
-     
+      try {
+        const res = await fetch(`${API}/api/movies/banner`);
+        const data = await res.json();
+        setMovies(data);
+      } catch (err) {
+        console.error("Failed to fetch movies:", err);
+      }
     };
     loadMovies();
   }, []);
 
+  // Rotate banner movie every 15s
   useEffect(() => {
     if (movies.length === 0) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prev) => {
         let newIndex = prev;
-
         while (newIndex === prev) {
           newIndex = Math.floor(Math.random() * movies.length);
         }
-
         return newIndex;
       });
-    }, 15000);
+    }, 7000);
 
     return () => clearInterval(interval);
   }, [movies]);
@@ -43,7 +48,7 @@ const UserDashboardBanner = () => {
   }
 
   const movie = movies[currentIndex];
-  const backdropUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
+  const backdropUrl = movie.backdrop; // Use DB field directly
 
   return (
     <div
@@ -69,9 +74,16 @@ const UserDashboardBanner = () => {
           <img src={logo} alt="logo" style={{ height: "20px" }} />
           <h1 className="fw-bold mb-3">{movie.title}</h1>
         </div>
-<div>
-  <p className="para" style={{height:"100px",width:"80%",overflow: "auto"}}>{movie.overview}</p>
-</div>
+
+        <div>
+          <p
+            className="para"
+            style={{ height: "100px", width: "80%", overflow: "auto" }}
+          >
+            {movie.description}
+          </p>
+        </div>
+
         <div className="d-flex justify-content-between">
           <div className="d-flex flex-row">
             <Button variant="light" className="me-2 fw-bold">
@@ -122,7 +134,7 @@ const UserDashboardBanner = () => {
               </span>
 
               <p className="fw-bold m-0">
-                {movie.vote_average >= 9 ? "UA 18+" : "UA 16+"}
+                {movie.rating >= 9 ? "UA 18+" : "UA 16+"}
               </p>
             </div>
           </div>

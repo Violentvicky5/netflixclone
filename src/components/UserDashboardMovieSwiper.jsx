@@ -7,12 +7,10 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 const UserDashboardMovieSwiper = ({ title, movies = [] }) => {
-
   const safeId = title.replace(/\s+/g, "-").toLowerCase();
 
   return (
     <div className="container movie-row mb-5">
-
       <h3 className="text-white mb-3">{title}</h3>
 
       <Swiper
@@ -21,11 +19,10 @@ const UserDashboardMovieSwiper = ({ title, movies = [] }) => {
         pagination={{
           el: `.pagination-${safeId}`,
           clickable: true,
-          renderBullet: (index, className) => {
-            return `<span class="swiper-pagination-bullet ${className} dash-pagination">—</span>`;
-          },
+          renderBullet: (index, className) =>
+            `<span class="swiper-pagination-bullet ${className} dash-pagination">—</span>`,
         }}
-        spaceBetween={10}
+        spaceBetween={15}
         slidesPerView={6}
         breakpoints={{
           0: { slidesPerView: 2 },
@@ -37,7 +34,10 @@ const UserDashboardMovieSwiper = ({ title, movies = [] }) => {
       >
         {movies.map((movie, index) => (
           <SwiperSlide key={index} className="movie-slide">
-            <img src={movie.img} alt={movie.title} className="movie-img" />
+            <div className="movie-card">
+              <img src={movie.img} alt={movie.title} className="movie-img" />
+              <p className="movie-title text-white mt-1">{movie.title}</p>
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>

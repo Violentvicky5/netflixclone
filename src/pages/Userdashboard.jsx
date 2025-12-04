@@ -1,31 +1,52 @@
-import React from 'react'
-import UserDashboardBanner from '../components/UserDashboardBanner'
-import UserDashboardHeader from '../components/UserDashboardHeader'
-import UserDashboardMovieSwiper from '../components/UserDashboardMovieSwiper'
-import card from "../assets/card.jpg"
+import React, { useEffect, useState } from "react";
+import UserDashboardBanner from "../components/UserDashboardBanner";
+import UserDashboardMovieSwiper from "../components/UserDashboardMovieSwiper";
+
 const Userdashboard = () => {
-  const sampleMovies = [
-  { img: card, title: "Movie 1" },
-  { img: card, title: "Movie 2" },
-  { img: card, title: "Movie 3" },
-  { img: card, title: "Movie 4" },
-  { img: card, title: "Movie 5" },
-  { img: card, title: "Movie 6" },
-  { img: card, title: "Movie 7" },
-];
+  const [moviesByCategory, setMoviesByCategory] = useState({});
+  const API = import.meta.env.VITE_BACKEND_URL;
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const res = await fetch(`${API}/api/movies/grouped`);
+        const data = await res.json();
+
+        // Ensure we have full poster URLs
+        const formatted = {};
+        ["Popular", "Top Rated", "Upcoming"].forEach((cat) => {
+          formatted[cat] = (data[cat] || []).map((movie) => ({
+            ...movie,
+            img: movie.poster, // pass poster URL as img for swiper
+          }));
+        });
+
+        setMoviesByCategory(formatted);
+      } catch (err) {
+        console.error("Failed to fetch movies:", err);
+      }
+    };
+
+    fetchMovies();
+  }, []);
+
+  const categories = ["Popular", "Top Rated", "Upcoming"];
+
   return (
     <div>
+      <UserDashboardBanner />
 
-<UserDashboardBanner/>
-<div style={{ background: "#111", minHeight: "100vh", padding: "20px" }}>
-<UserDashboardMovieSwiper title="Trending Now" movies={sampleMovies}/>
-<UserDashboardMovieSwiper title="Top Rated" movies={sampleMovies}/>
-<UserDashboardMovieSwiper title="New and Popular" movies={sampleMovies}/>
-<UserDashboardMovieSwiper title="Random" movies={sampleMovies}/>
-</div>
-
+      <div style={{ background: "#111", minHeight: "100vh", padding: "20px" }}>
+        {categories.map((category) => (
+          <UserDashboardMovieSwiper
+            key={category}
+            title={category}
+            movies={moviesByCategory[category] || []}
+          />
+        ))}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Userdashboard
+export default Userdashboard;
