@@ -19,7 +19,7 @@ import DashboardLayout from "./pages/DashboardLayout";
 import AdminHome from "./pages/admin/AdminHome";
 import UserManagement from "./pages/admin/UserManagement";
 import MovieManagement from "./pages/admin/MovieManagement";
-
+import MovieDelete from "./pages/admin/MovieDelete";
 const App = () => {
   return (
     <BrowserRouter>
@@ -41,6 +41,8 @@ const App = () => {
           <Route index element={<AdminHome />} /> {/* /admin */}
           <Route path="users" element={<UserManagement />} />{" "} {/* /admin/users */}
           <Route path="movies" element={<MovieManagement />} />{" "}{/* /admin/movies */}
+         <Route path="moviesdelete" element={<MovieDelete />} />
+      
         </Route>
       </Routes>
     </BrowserRouter>

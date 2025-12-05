@@ -12,7 +12,7 @@ const UserDashboardBanner = () => {
 
   const toggleMute = () => setIsMuted(!isMuted);
 
-  // Fetch movies from DB instead of TMDB
+ //fetching movies from movies collection (db)
   useEffect(() => {
     const loadMovies = async () => {
       try {
@@ -26,7 +26,7 @@ const UserDashboardBanner = () => {
     loadMovies();
   }, []);
 
-  // Rotate banner movie every 15s
+
   useEffect(() => {
     if (movies.length === 0) return;
 
@@ -48,8 +48,7 @@ const UserDashboardBanner = () => {
   }
 
   const movie = movies[currentIndex];
-  const backdropUrl = movie.backdrop; // Use DB field directly
-
+  const backdropUrl = movie.backdrop; 
   return (
     <div
       className="banner-bg d-flex flex-column justify-content-end text-start p-4"

@@ -13,7 +13,6 @@ const Header = () => {
         </div>
   <div>
             <button className='loginBtn btn text-white m-1' onClick={()=>navigate("/Login")}>Sign In</button>
-             <button className='loginBtn btn text-white' onClick={()=>navigate("/AdminLoginPage")}>Admin</button>
 </div>
      
         

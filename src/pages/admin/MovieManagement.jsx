@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { tmdbFetch } from "../../api/tmdb";
 
-
+{
+  /*below categories shown as button */
+}
 const categories = [
   { label: "Popular", endpoint: "/movie/popular" },
   { label: "Top Rated", endpoint: "/movie/top_rated" },
@@ -10,8 +12,14 @@ const categories = [
 
 const MovieManagement = () => {
   const [showToast, setShowToast] = useState(false);
-const [toastMessage, setToastMessage] = useState("");
+  const [toastMessage, setToastMessage] = useState("");
+  {
+    /*movies - stores fetched tmdb movies */
+  }
   const [movies, setMovies] = useState([]);
+  {
+    /*formMovie - movie object submitting to backend */
+  }
   const [formMovie, setFormMovie] = useState({
     tmdbId: "",
     title: "",
@@ -21,23 +29,33 @@ const [toastMessage, setToastMessage] = useState("");
     backdrop: "",
     category: "",
   });
+  {
+    /*below states- pagination ,loading and UI status */
+  }
   const [loading, setLoading] = useState(false);
   const [activeCategory, setActiveCategory] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
   const API = import.meta.env.VITE_BACKEND_URL;
-
+  {
+    /*fetch movies by catagories- and clicks again to hide movies */
+  }
   const fetchCategoryMovies = async (category) => {
     if (activeCategory === category.label) {
-      // Toggle off
       setActiveCategory("");
       setMovies([]);
       return;
     }
+    {
+      /* show active state and loading messg*/
+    }
 
     setActiveCategory(category.label);
     setLoading(true);
+    {
+      /*call TMDB and store movies */
+    }
     try {
       const data = await tmdbFetch(category.endpoint);
       setMovies(data.results || []);
@@ -48,7 +66,13 @@ const [toastMessage, setToastMessage] = useState("");
     }
     setLoading(false);
   };
-
+  {
+    /* When clicking Add on a TMDB movie:
+  1)Pre-fills the form
+  2)Sets poster/backdrop URLs
+  3)Sets category from activeCategory
+  */
+  }
   const fillForm = (movie) => {
     setFormMovie({
       tmdbId: movie.id,
@@ -59,15 +83,16 @@ const [toastMessage, setToastMessage] = useState("");
       backdrop: `https://image.tmdb.org/t/p/original${movie.backdrop_path}`,
       category: activeCategory,
     });
-     // Show toast
-  setToastMessage(`"${movie.title}" added to the form`);
-  setShowToast(true);
-
-  // Hide toast automatically after 3 seconds
-  setTimeout(() => setShowToast(false), 3000);
-
+    {
+      /*Shows the success toast for 3 seconds. */
+    }
+    setToastMessage(`"${movie.title}" added to the form`);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
   };
-
+  {
+    /*submit to backend */
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -93,7 +118,7 @@ const [toastMessage, setToastMessage] = useState("");
       });
     } catch (err) {
       console.error(err);
- alert(`"${formMovie.title}" is already in collection`);
+      alert(`"${formMovie.title}" is already in collection`);
     }
   };
 
@@ -105,61 +130,74 @@ const [toastMessage, setToastMessage] = useState("");
 
   return (
     <div className="container my-4">
-      {/* Bootstrap Toast */}
-<div
-  className={`toast align-items-center text-white bg-success border-0 position-fixed top-0 end-0 m-3 ${
-    showToast ? "show" : "hide"
-  }`}
-  role="alert"
-  aria-live="assertive"
-  aria-atomic="true"
->
-  <div className="d-flex">
-    <div className="toast-body">{toastMessage}</div>
-    <button
-      type="button"
-      className="btn-close btn-close-white me-2 m-auto"
-      onClick={() => setShowToast(false)}
-    ></button>
-  </div>
-</div>
+      <div
+        className={`toast align-items-center text-white bg-success border-0 position-fixed top-0 end-0 m-3 ${
+          showToast ? "show" : "hide"
+        }`}
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div className="d-flex">
+          <div className="toast-body">{toastMessage}</div>
+          <button
+            type="button"
+            className="btn-close btn-close-white me-2 m-auto"
+            onClick={() => setShowToast(false)}
+          ></button>
+        </div>
+      </div>
 
       <h2 className="mb-3 text-center">Movie Management</h2>
 
-     
-
-      {/* ================== ADD MOVIE FORM ================== */}
+      {/*add movie form*/}
       <form onSubmit={handleSubmit} className="bg-light p-3 rounded mb-4">
         <h5>Add Movie</h5>
-        {["tmdbId","title","description","rating","poster","backdrop","category"].map((field) => (
+        {[
+          "tmdbId",
+          "title",
+          "description",
+          "rating",
+          "poster",
+          "backdrop",
+          "category",
+        ].map((field) => (
           <div className="mb-3" key={field}>
-            <label className="form-label">{field.charAt(0).toUpperCase() + field.slice(1)}</label>
+            <label className="form-label">
+              {field.charAt(0).toUpperCase() + field.slice(1)}
+            </label>
             {field === "description" ? (
               <textarea
                 className="form-control"
                 rows="3"
                 value={formMovie[field]}
-                onChange={(e) => setFormMovie({...formMovie,[field]:e.target.value})}
+                onChange={(e) =>
+                  setFormMovie({ ...formMovie, [field]: e.target.value })
+                }
               />
             ) : (
               <input
                 className="form-control"
                 value={formMovie[field]}
-                onChange={(e) => setFormMovie({...formMovie,[field]:e.target.value})}
+                onChange={(e) =>
+                  setFormMovie({ ...formMovie, [field]: e.target.value })
+                }
               />
             )}
           </div>
         ))}
         <button className="btn btn-success w-100">Submit</button>
       </form>
- {/* ================== CATEGORY BUTTONS ================== */}
+      {/*CATEGORY BUTTONS*/}
       <div className="mb-4 text-center">
         <h3 className="fw-bold ">select movies</h3>
         {categories.map((cat) => (
           <button
             key={cat.label}
             className={`btn me-2 mb-2 ${
-              activeCategory === cat.label ? "btn-primary" : "btn-outline-primary"
+              activeCategory === cat.label
+                ? "btn-primary"
+                : "btn-outline-primary"
             }`}
             onClick={() => fetchCategoryMovies(cat)}
             disabled={loading}
@@ -168,7 +206,7 @@ const [toastMessage, setToastMessage] = useState("");
           </button>
         ))}
       </div>
-      {/* ================== MOVIES TABLE ================== */}
+      {/*MOVIES TABLE*/}
       <div className="table-responsive">
         <table className="table table-striped table-bordered table-hover">
           <thead className="table-dark">
@@ -192,9 +230,14 @@ const [toastMessage, setToastMessage] = useState("");
                 </td>
                 <td>{m.title}</td>
                 <td>{m.vote_average}</td>
-                <td style={{ maxWidth: "250px" }}>{m.overview.slice(0, 80)}...</td>
+                <td style={{ maxWidth: "250px" }}>
+                  {m.overview.slice(0, 80)}...
+                </td>
                 <td>
-                  <button className="btn btn-success btn-sm" onClick={() => fillForm(m)}>
+                  <button
+                    className="btn btn-success btn-sm"
+                    onClick={() => fillForm(m)}
+                  >
                     Add
                   </button>
                 </td>
@@ -204,7 +247,7 @@ const [toastMessage, setToastMessage] = useState("");
         </table>
       </div>
 
-      {/* ================== PAGINATION ================== */}
+      {/*PAGINATION*/}
       {totalPages > 1 && (
         <div className="d-flex justify-content-center mt-3">
           <button
@@ -214,7 +257,9 @@ const [toastMessage, setToastMessage] = useState("");
           >
             Prev
           </button>
-          <span className="align-self-center me-2">{currentPage} / {totalPages}</span>
+          <span className="align-self-center me-2">
+            {currentPage} / {totalPages}
+          </span>
           <button
             className="btn btn-outline-secondary"
             disabled={currentPage === totalPages}
