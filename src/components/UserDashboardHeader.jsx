@@ -9,9 +9,14 @@ import {
 } from "react-bootstrap";
 import logoImg from "../assets/logo.png";
 import { Navigate, useNavigate } from "react-router-dom";
+import { useContext, useState, useEffect } from "react";
+import { SearchContext } from "../context/SearchContext";
 
 const UserDashboardHeader = () => {
   const navigate = useNavigate();
+   const { searchTerm, setSearchTerm, setSearchResults } = useContext(SearchContext);
+  const [allMovies, setAllMovies] = useState([]);
+ 
   const API = import.meta.env.VITE_BACKEND_URL;
   const signOut = async () => {
     try {
@@ -36,7 +41,31 @@ const UserDashboardHeader = () => {
       console.error("Error signing out:", error);
     }
   };
+ useEffect(() => {
+    const loadMovies = async () => {
+      const res = await fetch(`${API}/api/movies/all`);
+      const data = await res.json();
+      setAllMovies(data);
+    };
+    loadMovies();
+  }, []);
 
+  // Search handler
+  const handleSearch = (e) => {
+    const term = e.target.value;
+    setSearchTerm(term);
+
+    if (term.trim() === "") {
+      setSearchResults([]);
+      return;
+    }
+
+    const results = allMovies.filter((movie) =>
+      movie.title.toLowerCase().includes(term.toLowerCase())
+    );
+
+    setSearchResults(results);
+  };
   return (
     <Navbar variant="dark" style={{ backgroundColor: "rgba(0,0,0,0.3)" }}>
       <Container className="d-flex align-items-center">
@@ -94,15 +123,18 @@ const UserDashboardHeader = () => {
             ></i>
 
             <input
-              type="text"
-              placeholder="Search"
-              className="form-control ps-4"
-              style={{
-                height: "32px",
-                border: "1px solid grey",
-                color: "black",
-              }}
-            />
+  type="text"
+  placeholder="Search"
+  value={searchTerm}
+  onChange={handleSearch}
+  className="form-control ps-4"
+  style={{
+    height: "32px",
+    border: "1px solid grey",
+    color: "black",
+  }}
+/>
+
           </div>
 
           <img

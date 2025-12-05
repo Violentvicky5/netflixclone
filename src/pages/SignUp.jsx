@@ -7,9 +7,10 @@ import { EmailContext } from "../context/EmailContext";
 const SignUp = () => {
   const navigate = useNavigate();
   const { email, setEmail } = useContext(EmailContext);
-
+const[userName,setUserName]=useState(""); {/* username state*/}
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const[userNameError,setUserNameError]=useState(""); {/* error mesg for username */}
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
@@ -19,13 +20,18 @@ const SignUp = () => {
     setPassword(e.target.value);
   };
 
+  {/* username function for input value*/}
+  const handleUserName=(e)=>{
+    setUserName(e.target.value);
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (loading) return;
     setLoading(true);
 
-    
+    setUserNameError("");
     setEmailError("");
     setPasswordError("");
 
@@ -34,6 +40,9 @@ const SignUp = () => {
     if (!email.trim()) {
       setEmailError("Email cannot be empty");
       valid = false;
+    }
+    if(!userName.trim()){
+      setUserNameError("Username cannot be empty");
     }
     if (!password.trim()) {
       setPasswordError("Password cannot be empty");
@@ -48,7 +57,7 @@ const SignUp = () => {
       const result = await fetch(`${API}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ userName, email, password }),
       });
 
       const data = await result.json();
@@ -59,7 +68,10 @@ const SignUp = () => {
           setEmailError(data.msg);
         } else if (data.msg?.toLowerCase().includes("password")) {
           setPasswordError(data.msg);
-        } else {
+        }else if(data.msg?.toLowerCase().includes("username")){
+          setUserNameError(data.msg);
+        } 
+        else {
           alert(data.msg || "Registration error");
         }
         setLoading(false);
@@ -87,6 +99,21 @@ const SignUp = () => {
         <p className="para mt-0">We hate paperwork, too.</p>
 
         <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <input
+              type="text"
+              className="form-control mb-1"
+              placeholder="User Name"
+              value={userName}
+               onChange={handleUserName}
+              style={{
+                border: emailError ? "2px solid red" : "1px solid #ccc",
+              }}
+            />
+            {userNameError && (
+              <p className="text-danger mb-2">{userNameError}</p>
+            )}
+          </div>
           <div className="mb-3">
             <input
               type="email"
