@@ -12,7 +12,7 @@ const UserManagement = () => {
   const [sortOrder, setSortOrder] = useState("none");
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10; 
+  const itemsPerPage = 10;
 
   const API = import.meta.env.VITE_BACKEND_URL || "";
 
@@ -69,7 +69,7 @@ const UserManagement = () => {
 
     // FILTER BY PLAN
     if (planFilter !== "all") {
-      data = data.filter((u) => u.plan === planFilter);
+      data = data.filter((u) => u.plan?.name === planFilter);
     }
 
     // FILTER BY STATUS
@@ -80,13 +80,13 @@ const UserManagement = () => {
 
     // SORT
     if (sortOrder === "asc") {
-      data.sort((a, b) => a.name.localeCompare(b.name));
+      data.sort((a, b) => a.userName.localeCompare(b.userName));
     } else if (sortOrder === "desc") {
-      data.sort((a, b) => b.name.localeCompare(a.name));
+      data.sort((a, b) => b.userName.localeCompare(a.userName));
     }
 
     setFilteredUsers(data);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   }, [searchTerm, planFilter, statusFilter, sortOrder, users]);
 
   // PAGINATION
@@ -103,8 +103,6 @@ const UserManagement = () => {
     XLSX.writeFile(workbook, "users.xlsx");
   };
 
-  
-
   return (
     <div className="container my-4">
       <h2 className="mb-3 text-center">User Management</h2>
@@ -112,14 +110,14 @@ const UserManagement = () => {
       {/* COUNT & EXPORT BUTTONS */}
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h6>
-          Total Users: <b>{users.length}</b> | Showing: <b>{filteredUsers.length}</b>
+          Total Users: <b>{users.length}</b> | Showing:{" "}
+          <b>{filteredUsers.length}</b>
         </h6>
 
         <div>
           <button className="btn btn-success me-2" onClick={exportExcel}>
             Export Excel
           </button>
-          
         </div>
       </div>
 
@@ -177,11 +175,15 @@ const UserManagement = () => {
       <div className="table-responsive">
         <table className="table table-striped table-bordered table-hover">
           <thead className="table-dark">
-            <tr>
+            <tr className="text-center para">
               <th>ID</th>
               <th>Name</th>
               <th>Email</th>
-              <th>Plan</th>
+              <th>Plan Name</th>
+              <th>Plan Quality</th>
+              <th>Plan Price</th>
+              <th>Start</th>
+              <th>Expiry</th>
               <th>Status</th>
               <th className="text-center">Actions</th>
             </tr>
@@ -189,13 +191,16 @@ const UserManagement = () => {
 
           <tbody>
             {currentUsers.map((u) => (
-              <tr key={u._id}>
+              <tr key={u._id} className="para">
                 <td className="text-break">{u._id}</td>
-                <td>{u.name}</td>
+                <td>{u.userName}</td>
                 <td className="text-break">{u.email}</td>
-                <td>{u.plan}</td>
+                <td>{u.plan?.name || "—"}</td>
+                <td>{u.plan?.quality || "—"}</td>
+                <td>{u.plan?.price || "—"}</td>
+                <td>{u.plan?.start || "—"}</td>
+                <td>{u.plan?.expiry || "—"}</td>
                 <td>{u.isVerified ? "Verified" : "Not Verified"}</td>
-
                 <td className="text-center">
                   <button
                     className="btn btn-danger btn-sm"

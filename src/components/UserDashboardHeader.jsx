@@ -89,23 +89,48 @@ const UserDashboardHeader = () => {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item href="#">Home</Dropdown.Item>
-                <Dropdown.Item href="#">TV Shows</Dropdown.Item>
-                <Dropdown.Item href="#">Movies</Dropdown.Item>
-                <Dropdown.Item href="#">New & Popular</Dropdown.Item>
-                <Dropdown.Item href="#">My List</Dropdown.Item>
-              </Dropdown.Menu>
+  <Dropdown.Item onClick={() => navigate("/UserDashboard")}>
+    Home
+  </Dropdown.Item>
+
+  <Dropdown.Item onClick={() => navigate("/LikedMovies")}>
+    Liked Movies
+  </Dropdown.Item>
+
+  <Dropdown.Item onClick={() => navigate("/WatchList")}>
+    Watch List
+  </Dropdown.Item>
+</Dropdown.Menu>
+
             </Dropdown>
           </div>
         </div>
 
-        <Nav className="d-none d-lg-flex ms-4">
-          <Nav.Link href="#">Home</Nav.Link>
-          <Nav.Link href="#">TV Shows</Nav.Link>
-          <Nav.Link href="#">Movies</Nav.Link>
-          <Nav.Link href="#">New & Popular</Nav.Link>
-          <Nav.Link href="#">My List</Nav.Link>
-        </Nav>
+       <Nav className="d-none d-lg-flex ms-4" style={{ gap: "15px" }}>
+  <button
+ className="btn btn-link p-1 text-danger fw-bold border-2 "    style={{textDecoration:"none",borderColor:"grey",borderRadius:"15px"}}
+    onClick={() => navigate("/userDashboard")}
+  >
+    Home
+  </button>
+
+  <button
+    className=" btn btn-link text-black p-1 para fw-bold border-2"
+    style={{textDecoration:"none"}}
+    onClick={() => navigate("/LikedMovies")}
+  >
+    Liked Movies
+  </button>
+
+  <button
+    className="btn btn-link text-black p-0 para fw-bold"
+    style={{textDecoration:"none"}}
+    onClick={() => navigate("/WatchList")}
+  >
+    Watch List
+  </button>
+</Nav>
+
 
         <div
           className="ms-auto d-flex align-items-center"
@@ -137,11 +162,13 @@ const UserDashboardHeader = () => {
 
           </div>
 
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
-            alt="profile"
-            style={{ height: "32px", borderRadius: "4px", cursor: "pointer" }}
-          />
+         <img
+  src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
+  alt="profile"
+  style={{ height: "32px", borderRadius: "4px", cursor: "pointer" }}
+  onClick={() => navigate("/UserProfile")}
+/>
+
           <button
             type="button "
             className="btn loginBtn text-white"

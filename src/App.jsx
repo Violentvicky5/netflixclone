@@ -20,6 +20,12 @@ import AdminHome from "./pages/admin/AdminHome";
 import UserManagement from "./pages/admin/UserManagement";
 import MovieManagement from "./pages/admin/MovieManagement";
 import MovieDelete from "./pages/admin/MovieDelete";
+
+//Userdashboard pages
+import LikedMovies from "./pages/userdashboardpages/LikedMovies";
+import WatchList from "./pages/userdashboardpages/WatchList";
+import UserProfile from "./pages/userdashboardpages/UserProfile";
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -39,11 +45,18 @@ const App = () => {
         {/* ADMIN DASHBOARD WITH NESTED ROUTES */}
         <Route path="/admin" element={<DashboardLayout />}>
           <Route index element={<AdminHome />} /> {/* /admin */}
-          <Route path="users" element={<UserManagement />} />{" "} {/* /admin/users */}
-          <Route path="movies" element={<MovieManagement />} />{" "}{/* /admin/movies */}
-         <Route path="moviesdelete" element={<MovieDelete />} />
-      
-        </Route>
+          <Route path="users" element={<UserManagement />} />{" "}
+          {/* /admin/users */}
+          <Route path="movies" element={<MovieManagement />} />{" "}
+          {/* /admin/movies */}
+          <Route path="moviesdelete" element={<MovieDelete />} />
+          </Route>
+
+           {/* userdashboard routes*/}
+          <Route path="WatchList" element={<WatchList />} />
+          <Route path="LikedMovies" element={<LikedMovies />} />
+          <Route path="UserProfile" element={<UserProfile />} />
+       
       </Routes>
     </BrowserRouter>
   );

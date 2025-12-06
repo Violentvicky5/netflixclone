@@ -8,7 +8,7 @@ const UserDashboardBanner = () => {
   const [movies, setMovies] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
-  const { searchResults } = useContext(SearchContext); // check if results exist
+  const {searchTerm, searchResults } = useContext(SearchContext); 
 
   const API = import.meta.env.VITE_BACKEND_URL;
 
@@ -57,22 +57,27 @@ const UserDashboardBanner = () => {
       {/* Header always visible */}
       <UserDashboardHeader />
 
-      {/* Only show poster/banner if no search results */}
-      {searchResults.length === 0 && (
-        <div
-          className="banner-bg d-flex flex-column justify-content-end text-start p-4"
-          style={{
-            backgroundImage: `url(${backdropUrl})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            position: "relative",
-            color: "#fff",
-            height: "85vh",
-            width: "100%",
-            transition: "background-image 1s ease-in-out",
-          }}
-        >
+     {/* CASE 1: User searched & no results */}
+{searchTerm && searchResults.length === 0 && (
+  <h2 className="text-center text-light mt-5">No movies found</h2>
+)}
+
+{/* CASE 2: No search OR search results exist → show banner */}
+{!searchTerm && (
+  <div
+    className="banner-bg d-flex flex-column justify-content-end text-start p-4"
+    style={{
+      backgroundImage: `url(${backdropUrl})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      position: "relative",
+      color: "#fff",
+      height: "85vh",
+      width: "100%",
+      transition: "background-image 1s ease-in-out",
+    }}
+  >
           <div className="container">
             <div>
               <img src={logo} alt="logo" style={{ height: "20px" }} />
