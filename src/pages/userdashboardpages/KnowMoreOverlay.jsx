@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { FaHeart, FaRegHeart, FaBookmark, FaRegBookmark, FaPlay } from "react-icons/fa";
-
+import WatchListBtn from "../../components/WatchListBtn";
 const KnowMoreOverlay = ({ movieId, onClose }) => {
   const [movie, setMovie] = useState(null);
   const [liked, setLiked] = useState(false);
@@ -90,15 +90,12 @@ const KnowMoreOverlay = ({ movieId, onClose }) => {
     </button>
 
     {/* Watchlist */}
-    <button
-      className={`btn border rounded-circle d-flex align-items-center justify-content-center ${
-        watchlist ? "text-danger" : "text-dark"
-      }`}
-      style={{ backgroundColor: "white", padding: "6px" }}
-      onClick={() => setWatchlist(!watchlist)}
-    >
-      {watchlist ? <FaBookmark /> : <FaRegBookmark />}
-    </button>
+ <WatchListBtn 
+  movie={movie}
+  onChange={(val) => setMovie({ ...movie, watchlist: val })}
+/>
+
+
   </div>
 </div>
 
