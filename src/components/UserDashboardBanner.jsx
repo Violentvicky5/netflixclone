@@ -3,8 +3,10 @@ import { Button } from "react-bootstrap";
 import UserDashboardHeader from "./UserDashboardHeader";
 import logo from "../assets/logo.png";
 import { SearchContext } from "../context/SearchContext";
-
+import KnowMoreOverlay from "../pages/userdashboardpages/KnowMoreOverlay";
 const UserDashboardBanner = () => {
+    const [showMovieId, setShowMovieId] = useState(null);
+  
   const [movies, setMovies] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
@@ -98,7 +100,7 @@ const UserDashboardBanner = () => {
                 <Button variant="light" className="me-2 fw-bold">
                   Play
                 </Button>
-                <Button variant="secondary" className="fw-bold">
+                <Button variant="secondary" className="fw-bold"  onClick={() => setShowMovieId(movie._id)}  >
                   ! More Info
                 </Button>
               </div>
@@ -147,6 +149,12 @@ const UserDashboardBanner = () => {
               </div>
             </div>
           </div>
+             {showMovieId && (
+  <KnowMoreOverlay
+    movieId={showMovieId}
+    onClose={() => setShowMovieId(null)}
+  />
+)}
         </div>
       )}
     </>

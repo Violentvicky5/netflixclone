@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
-
+import KnowMoreOverlay from "../pages/userdashboardpages/KnowMoreOverlay";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 const UserDashboardMovieSwiper = ({ title, movies = [] }) => {
+  const [showMovieId, setShowMovieId] = useState(null);
+
   const safeId = title.replace(/\s+/g, "-").toLowerCase();
+
+ 
 
   return (
     <div className="container movie-row mb-5">
@@ -34,8 +38,18 @@ const UserDashboardMovieSwiper = ({ title, movies = [] }) => {
       >
         {movies.map((movie, index) => (
           <SwiperSlide key={index} className="movie-slide">
-            <div className="movie-card">
-              <img src={movie.img} alt={movie.title} className="movie-img" />
+            <div className="movie-card position-relative">
+
+              {/* ⋮ Three Dots Button */}
+              <button
+                className="more-btn"
+ onClick={() => setShowMovieId(movie._id)} >
+                ⋮
+              </button>
+
+              {/* Movie Image */}
+<img src={movie.poster} alt={movie.title} className="movie-img" />
+
               <p className="movie-title text-white mt-1">{movie.title}</p>
             </div>
           </SwiperSlide>
@@ -43,6 +57,13 @@ const UserDashboardMovieSwiper = ({ title, movies = [] }) => {
       </Swiper>
 
       <div className={`custom-pagination pagination-${safeId} mt-2`}></div>
+      {showMovieId && (
+  <KnowMoreOverlay
+    movieId={showMovieId}
+    onClose={() => setShowMovieId(null)}
+  />
+)}
+
     </div>
   );
 };
