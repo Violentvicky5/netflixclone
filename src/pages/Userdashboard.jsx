@@ -36,7 +36,7 @@ const Userdashboard = () => {
 
   return (
     <div>
-      {/* ✅ Header always visible */}
+      {/* Header always visible */}
       <UserDashboardBanner />
 
       {/* Show search results if searchTerm is not empty */}
@@ -62,7 +62,7 @@ const Userdashboard = () => {
           )}
         </div>
       ) : (
-        // No search → show banner + swipers
+        
         <div style={{ background: "#111", minHeight: "100vh", padding: "20px" }}>
           {categories.map((category) => (
             <UserDashboardMovieSwiper

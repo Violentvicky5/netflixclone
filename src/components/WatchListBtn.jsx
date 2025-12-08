@@ -7,32 +7,38 @@ const WatchListBtn = ({ movie, onChange }) => {
   const API = import.meta.env.VITE_BACKEND_URL;
 
   const toggleWatchlist = async () => {
-    if (!token) return window.location.href = "/login";
-
+    if (!token) return (window.location.href = "/login");
     setLoading(true);
 
     try {
       if (movie.watchlist) {
-        // remove
+        // Remove
         await fetch(`${API}/api/watchlist/remove/${movie.tmdbId}`, {
           method: "DELETE",
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         });
         onChange(false);
       } else {
-        // add
+        // Add
         await fetch(`${API}/api/watchlist/add`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(movie)
+          body: JSON.stringify({
+            tmdbId: movie.tmdbId,
+            title: movie.title,
+            description: movie.description,
+            rating: movie.rating,
+            poster: movie.poster,
+            category: movie.category,
+          }),
         });
         onChange(true);
       }
     } catch (err) {
-      console.log(err);
+      console.error("WatchListBtn Error:", err);
     }
 
     setLoading(false);

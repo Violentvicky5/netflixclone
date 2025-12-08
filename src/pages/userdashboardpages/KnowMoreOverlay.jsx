@@ -1,58 +1,55 @@
 import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
-import { FaHeart, FaRegHeart, FaBookmark, FaRegBookmark, FaPlay } from "react-icons/fa";
+import { FaPlay } from "react-icons/fa";
 import WatchListBtn from "../../components/WatchListBtn";
+
 const KnowMoreOverlay = ({ movieId, onClose }) => {
   const [movie, setMovie] = useState(null);
-  const [liked, setLiked] = useState(false);
   const [watchlist, setWatchlist] = useState(false);
-
   const API = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
-    const fetchMovie = async () => {
-      if (!movieId) return;
+  const fetchMovie = async () => {
+    if (!movieId) return;
+    const token = localStorage.getItem("token");
+    if (!token) {
+      onClose();
+      window.location.href = "/login";
+      return;
+    }
 
-      const token = localStorage.getItem("token");
-      if (!token) {
-        onClose();
-        window.location.href = "/login"; 
-        return;
-      }
+    try {
+      // Fetch movie details
+      const res = await fetch(`${API}/api/movies/movie/${movieId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      setMovie(data);
 
-      try {
-        const res = await fetch(`${API}/api/movies/movie/${movieId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+      // Check watchlist using data.tmdbId (NOT movie.tmdbId)
+      const res2 = await fetch(`${API}/api/watchlist/check/${data.tmdbId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data2 = await res2.json();
+      setWatchlist(data2.exists);
 
-        if (res.status === 401 || res.status === 403) {
-          onClose();
-          window.location.href = "/login"; 
-          return;
-        }
+    } catch (err) {
+      console.error("KnowMoreOverlay Error:", err);
+    }
+  };
 
-        const data = await res.json();
-        setMovie(data);
-        setLiked(data.liked || false);
-        setWatchlist(data.watchlist || false);
+  fetchMovie();
+}, [movieId, API, onClose]);
 
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    setMovie(null);
-    fetchMovie();
-  }, [movieId, API, onClose]);
 
   if (!movieId) return null;
 
   return (
     <div className="overlay-bg">
       <div className="overlay-box">
-        <button className="overlay-close-btn" onClick={onClose}>×</button>
+        <button className="overlay-close-btn" onClick={onClose}>
+          ×
+        </button>
 
         {!movie ? (
           <div className="d-flex justify-content-center align-items-center h-100">
@@ -60,47 +57,27 @@ const KnowMoreOverlay = ({ movieId, onClose }) => {
           </div>
         ) : (
           <>
-           {/* Poster */}
-<div className="overlay-poster-wrapper position-relative">
-  <img
-    src={movie.poster}
-    alt={movie.title}
-    className="overlay-poster img-fluid rounded"
-  />
+            <div className="overlay-poster-wrapper position-relative">
+              <img
+                src={movie.poster}
+                alt={movie.title}
+                className="overlay-poster img-fluid rounded"
+              />
+              <div className="position-absolute bottom-0 start-0 p-2 d-flex gap-2 align-items-center">
+                <button
+                  className="btn btn-light d-flex align-items-center gap-1 border"
+                  onClick={() => alert("Play movie!")}
+                >
+                  <FaPlay /> Play
+                </button>
 
-  {/* Icons over poster in bottom-left */}
-  <div className="position-absolute bottom-0 start-0 p-2 d-flex gap-2 align-items-center">
-    {/* Play Button */}
-    <button
-      className="btn btn-light d-flex align-items-center gap-1 border"
-      onClick={() => alert("Play movie!")}
-    >
-      <FaPlay /> Play
-    </button>
+                <WatchListBtn
+                  movie={{ ...movie, watchlist }}
+                  onChange={(val) => setWatchlist(val)}
+                />
+              </div>
+            </div>
 
-    {/* Liked */}
-    <button
-      className={`btn border rounded-circle d-flex align-items-center justify-content-center ${
-        liked ? "text-danger" : "text-dark"
-      }`}
-      style={{ backgroundColor: "white", padding: "6px" }}
-      onClick={() => setLiked(!liked)}
-    >
-      {liked ? <FaHeart /> : <FaRegHeart />}
-    </button>
-
-    {/* Watchlist */}
- <WatchListBtn 
-  movie={movie}
-  onChange={(val) => setMovie({ ...movie, watchlist: val })}
-/>
-
-
-  </div>
-</div>
-
-
-            {/* Details */}
             <div className="overlay-details p-3 text-white">
               <h3>{movie.title}</h3>
               <p className="text-secondary">{movie.category}</p>
