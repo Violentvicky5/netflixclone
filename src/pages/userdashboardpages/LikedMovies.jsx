@@ -18,7 +18,7 @@ const LikedMovies = () => {
       }
 
       try {
-        const res = await fetch(`${API}/api/liked/my`, {
+        const res = await fetch(`${API}/api/likelist/my`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -36,7 +36,7 @@ const LikedMovies = () => {
   // Remove from liked movies
   const removeLiked = async (tmdbId) => {
     try {
-      await fetch(`${API}/api/liked/remove/${tmdbId}`, {
+      await fetch(`${API}/api/likelist/remove/${tmdbId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

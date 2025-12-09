@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { FaPlay } from "react-icons/fa";
 import WatchListBtn from "../../components/WatchListBtn";
+import LikeBtn from "../../components/Likebtn";
 
 const KnowMoreOverlay = ({ movieId, onClose }) => {
   const [movie, setMovie] = useState(null);
   const [watchlist, setWatchlist] = useState(false);
+  const[likeList,setLikeList] = useState(false);
   const API = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
@@ -32,6 +34,13 @@ const KnowMoreOverlay = ({ movieId, onClose }) => {
       });
       const data2 = await res2.json();
       setWatchlist(data2.exists);
+
+      //check likelist same as above 
+      const res3=await fetch(`${API}/api/likelist/check/${data.tmdbId}`,{
+        headers:{Authorization:`Bearer ${token}`},
+      });
+      const data3 = await res3.json();
+      setLikeList(data3.exists);
 
     } catch (err) {
       console.error("KnowMoreOverlay Error:", err);
@@ -70,6 +79,10 @@ const KnowMoreOverlay = ({ movieId, onClose }) => {
                 >
                   <FaPlay /> Play
                 </button>
+                <LikeBtn
+                  movie={{ ...movie, likeList }}
+                  onChange={(val) => setLikeList(val)}
+                />
 
                 <WatchListBtn
                   movie={{ ...movie, watchlist }}
