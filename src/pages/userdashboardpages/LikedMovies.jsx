@@ -46,13 +46,27 @@ const LikedMovies = () => {
     }
   };
 
-  if (loading) return <h4 className="text-white p-4">Loading liked movies...</h4>;
+  if (loading)
+    return <h4 className="text-white p-4">Loading liked movies...</h4>;
 
   return (
     <div className="bg-black min-vh-100">
       <HeaderSignOutBar />
       <div className="container py-4">
-        <h2 className="text-white mb-4">Your Liked Movies</h2>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div>
+            <h2 className="text-white mb-4">Your Liked Movies</h2>
+          </div>
+          <div>
+            <button
+              className="btn text-white para"
+              onClick={() => navigate(-1)}
+            >
+              <i className="fa fa-arrow-left me-2"></i>
+              Back
+            </button>
+          </div>
+        </div>
 
         {likedMovies.length === 0 ? (
           <p className="text-secondary">You haven’t liked any movies yet.</p>
@@ -66,7 +80,6 @@ const LikedMovies = () => {
                     alt={movie.title}
                     className="img-fluid rounded"
                     style={{ cursor: "pointer" }}
-                    onClick={() => navigate(`/know-more/${movie.tmdbId}`)}
                   />
 
                   {/* Remove button */}
@@ -78,9 +91,7 @@ const LikedMovies = () => {
                   </button>
                 </div>
 
-                <p className="text-light mt-2">
-                  {movie.title}
-                </p>
+                <p className="text-light mt-2">{movie.title}</p>
               </div>
             ))}
           </div>

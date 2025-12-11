@@ -91,7 +91,21 @@ const Login = () => {
             backgroundColor: "rgba(0,0,0,0.75)",
           }}
         >
-          <h3 className="text-light fw-bold mb-3">Sign In</h3>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div>
+              <h3 className="text-light fw-bold mb-3">Sign In</h3>
+            </div>
+            <div>
+              <button
+                className="btn text-white para"
+                onClick={() => navigate(-1)}
+              >
+                <i className="fa fa-arrow-left me-2"></i>
+                Back
+              </button>
+            </div>
+            
+          </div>
 
           <input
             type="email"
@@ -141,18 +155,23 @@ const Login = () => {
 
           <p className="para mt-3 text-light">
             New to Netflix?{" "}
-            <a href="#" className="text-primary">
-              Sign Up now
-            </a>
+            <button
+              className="text-primary btn para mb-1 "
+              onClick={() => navigate("/")}
+            >
+              Get Started Now
+            </button>
           </p>
 
           <p className="para text-light small">
             This page is protected by Google reCAPTCHA to ensure you're not a
             bot.
-            <br />
-            <a href="#" className="text-primary">
-              Learn more
-            </a>
+            <button
+              className="text-primary btn para"
+              onClick={() => navigate("/LearnMore")}
+            >
+              Learn more.
+            </button>
           </p>
         </form>
       </div>

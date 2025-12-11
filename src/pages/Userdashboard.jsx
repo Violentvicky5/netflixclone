@@ -36,12 +36,12 @@ const Userdashboard = () => {
 
   return (
     <div>
-      {/* Header always visible */}
       <UserDashboardBanner />
 
-      {/* Show search results if searchTerm is not empty */}
       {searchTerm.trim() !== "" ? (
-        <div style={{ background: "#111", padding: "20px", minHeight: "100vh" }}>
+        <div
+          style={{ background: "#111", padding: "20px", minHeight: "100vh" }}
+        >
           <h2 className="text-white mb-4">Search Results</h2>
 
           {searchResults.length > 0 ? (
@@ -62,8 +62,9 @@ const Userdashboard = () => {
           )}
         </div>
       ) : (
-        
-        <div style={{ background: "#111", minHeight: "100vh", padding: "20px" }}>
+        <div
+          style={{ background: "#111", minHeight: "100vh", padding: "20px" }}
+        >
           {categories.map((category) => (
             <UserDashboardMovieSwiper
               key={category}

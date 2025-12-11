@@ -11,6 +11,7 @@ import Payment from "./pages/Payment";
 import WelcomePage from "./pages/WelcomePage";
 import Userdashboard from "./pages/Userdashboard";
 import ForgotPassword from "./pages/ForgotPassword";
+import LearnMore from "./pages/LearnMore";
 
 import AdminLoginPage from "./pages/AdminLoginPage";
 import DashboardLayout from "./pages/DashboardLayout";
@@ -42,6 +43,9 @@ const App = () => {
         <Route path="/ForgotPassword" element={<ForgotPassword />} />
         <Route path="/AdminLoginPage" element={<AdminLoginPage />} />
         <Route path="/DashboardLayout" element={<DashboardLayout />} />
+               <Route path="/LearnMore" element={<LearnMore />} />
+
+       
         {/* ADMIN DASHBOARD WITH NESTED ROUTES */}
         <Route path="/admin" element={<DashboardLayout />}>
           <Route index element={<AdminHome />} /> {/* /admin */}

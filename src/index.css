@@ -125,7 +125,7 @@
 /* Banner image area */
 .banner-bg {
   width: 100%;
-  height: 80vh;
+  height: 65vh !important;
   background-size: cover !important;
   background-position: center !important;
   background-repeat: no-repeat !important;

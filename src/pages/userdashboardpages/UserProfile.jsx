@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../assets/logo.png";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { useNavigate } from "react-router-dom";
 
 const UserProfile = () => {
   const [user, setUser] = useState(null);
   const API = import.meta.env.VITE_BACKEND_URL;
+const navigate = useNavigate();
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -35,8 +36,22 @@ const UserProfile = () => {
 
   return (
     <div className="container p-5 text-light bg-black">
-      <div className="text-center mb-4">
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div>
         <img src={logo} alt="logo" width={120} />
+            </div>
+            <div>
+              <button
+                className="btn text-white para"
+                onClick={() => navigate(-1)}
+              >
+                <i className="fa fa-arrow-left me-2"></i>
+                Back
+              </button>
+            </div>
+            
+          </div>
+      <div className="text-center mb-4">
         <h2 className="mt-3">Profile</h2>
         <p className="text-white">Manage your account and subscription</p>
       </div>
