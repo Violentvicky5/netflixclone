@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { tmdbFetch } from "../../api/tmdb";
+import { tmdbFetch, tmdbVideoUrl } from "../../api/tmdb";
 
 {
   /*below categories shown as button */
@@ -28,6 +28,7 @@ const MovieManagement = () => {
     poster: "",
     backdrop: "",
     category: "",
+     videoUrl:"",
   });
   {
     /*below states- pagination ,loading and UI status */
@@ -73,7 +74,8 @@ const MovieManagement = () => {
   3)Sets category from activeCategory
   */
   }
-  const fillForm = (movie) => {
+  const fillForm =async (movie) => {
+    const videoUrl =await tmdbVideoUrl(movie.id);
     setFormMovie({
       tmdbId: movie.id,
       title: movie.title,
@@ -82,6 +84,7 @@ const MovieManagement = () => {
       poster: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
       backdrop: `https://image.tmdb.org/t/p/original${movie.backdrop_path}`,
       category: activeCategory,
+      videoUrl: videoUrl, 
     });
     {
       /*Shows the success toast for 3 seconds. */
@@ -115,6 +118,7 @@ const MovieManagement = () => {
         poster: "",
         backdrop: "",
         category: "",
+         videoUrl: "",
       });
     } catch (err) {
       console.error(err);
@@ -161,6 +165,7 @@ const MovieManagement = () => {
           "poster",
           "backdrop",
           "category",
+          "videoUrl"
         ].map((field) => (
           <div className="mb-3" key={field}>
             <label className="form-label">

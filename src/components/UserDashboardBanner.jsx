@@ -4,7 +4,7 @@ import UserDashboardHeader from "./UserDashboardHeader";
 import logo from "../assets/logo.png";
 import { SearchContext } from "../context/SearchContext";
 import KnowMoreOverlay from "../pages/userdashboardpages/KnowMoreOverlay";
-
+import PlayTrailer from "../pages/userdashboardpages/PlayTrailer";
 const UserDashboardBanner = () => {
   const [showMovieId, setShowMovieId] = useState(null);
   const [movies, setMovies] = useState([]);
@@ -83,7 +83,9 @@ const UserDashboardBanner = () => {
                 className="img-fluid"
                 style={{ height: "20px", maxHeight: "4vh" }}
               />
-              <h1 className="fw-bold mb-3 fs-5 fs-md-3 fs-lg-1">{movie.title}</h1>
+              <h1 className="fw-bold mb-3 fs-5 fs-md-3 fs-lg-1">
+                {movie.title}
+              </h1>
             </div>
 
             <div>
@@ -103,14 +105,12 @@ const UserDashboardBanner = () => {
             </div>
 
             <div className="d-flex justify-content-between flex-wrap align-items-center mt-2">
-              <div className="d-flex flex-row flex-wrap" style={{ gap: "0.5rem" }}>
-                <Button
-                  variant="light"
-                  className="fw-bold"
-                  style={{ fontSize: "0.7rem" }}
-                >
-                  Play
-                </Button>
+              <div
+                className="d-flex flex-row flex-wrap"
+                style={{ gap: "0.5rem" }}
+              >
+                <PlayTrailer movieId={movie.tmdbId} />
+
                 <Button
                   variant="secondary"
                   className="fw-bold"
@@ -121,7 +121,10 @@ const UserDashboardBanner = () => {
                 </Button>
               </div>
 
-              <div className="d-flex align-items-center mt-2 mt-md-0" style={{ gap: "10px" }}>
+              <div
+                className="d-flex align-items-center mt-2 mt-md-0"
+                style={{ gap: "10px" }}
+              >
                 <div
                   onClick={toggleMute}
                   className="d-flex justify-content-center align-items-center"
@@ -138,7 +141,9 @@ const UserDashboardBanner = () => {
                 >
                   <i
                     className={
-                      isMuted ? "fa-solid fa-volume-xmark" : "fa-solid fa-volume-high"
+                      isMuted
+                        ? "fa-solid fa-volume-xmark"
+                        : "fa-solid fa-volume-high"
                     }
                     style={{ fontSize: "1rem" }}
                   ></i>
@@ -146,7 +151,11 @@ const UserDashboardBanner = () => {
 
                 <div
                   className="d-flex align-items-center px-2 py-1"
-                  style={{ backgroundColor: "rgba(0,0,0,0.3)", gap: "10px", borderRadius: "6px" }}
+                  style={{
+                    backgroundColor: "rgba(0,0,0,0.3)",
+                    gap: "10px",
+                    borderRadius: "6px",
+                  }}
                 >
                   <span
                     className="badge d-flex align-items-center justify-content-center"
@@ -169,7 +178,10 @@ const UserDashboardBanner = () => {
           </div>
 
           {showMovieId && (
-            <KnowMoreOverlay movieId={showMovieId} onClose={() => setShowMovieId(null)} />
+            <KnowMoreOverlay
+              movieId={showMovieId}
+              onClose={() => setShowMovieId(null)}
+            />
           )}
         </div>
       )}

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
-import { FaPlay } from "react-icons/fa";
 import WatchListBtn from "../../components/WatchListBtn";
 import LikeBtn from "../../components/Likebtn";
-
+import PlayTrailer from "./PlayTrailer"
 const KnowMoreOverlay = ({ movieId, onClose }) => {
   const [movie, setMovie] = useState(null);
   const [watchlist, setWatchlist] = useState(false);
@@ -73,12 +72,7 @@ const KnowMoreOverlay = ({ movieId, onClose }) => {
                 className="overlay-poster img-fluid rounded"
               />
               <div className="position-absolute bottom-0 start-0 p-2 d-flex gap-2 align-items-center">
-                <button
-                  className="btn btn-light d-flex align-items-center gap-1 border"
-                  onClick={() => alert("Play movie!")}
-                >
-                  <FaPlay /> Play
-                </button>
+                 <PlayTrailer movieId={movie.tmdbId} />
                 <LikeBtn
                   movie={{ ...movie, likeList }}
                   onChange={(val) => setLikeList(val)}

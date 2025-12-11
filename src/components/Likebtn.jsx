@@ -33,6 +33,8 @@ if(!token)  return (window.location.href = "/login");
             rating: movie.rating,
             poster: movie.poster,
             category: movie.category,
+            videoUrl: movie.videoUrl,
+            
           }),
         })
                 

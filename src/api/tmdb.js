@@ -11,3 +11,14 @@ export const tmdbFetch = async (endpoint) => {
 
   return res.json();
 };
+
+
+export const tmdbVideoUrl = async (movieId) => {
+  const data = await tmdbFetch(`/movie/${movieId}/videos`);
+
+  const trailer = data.results?.find(
+    (v) => v.site === "YouTube" && v.type === "Trailer"
+  );
+
+  return trailer ? `https://www.youtube.com/watch?v=${trailer.key}` : "";
+};
