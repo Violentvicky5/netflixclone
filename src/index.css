@@ -141,7 +141,6 @@
   top: 0;
   left: 0;
   width: 100%;
-  
 }
 
 @media (max-width: 768px) {
@@ -444,9 +443,6 @@
 .navbar.customNav {
   background: rgba(0, 0, 0, 0.1) !important;
 }
-
-
-
 
 .navbar.customNav {
   z-index: 9999 !important;

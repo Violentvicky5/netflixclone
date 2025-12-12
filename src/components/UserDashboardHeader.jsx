@@ -79,7 +79,7 @@ const UserDashboardHeader = () => {
   return (
     <Navbar   className="customNav">
       <Container className="d-flex justify-content-between align-items-center">
-        {/* Left side: Logo & mobile dropdown */}
+       
         <div className="d-flex align-items-center" style={{ gap: "10px" }}>
           <Navbar.Brand href="#">
             <img
@@ -113,7 +113,6 @@ const UserDashboardHeader = () => {
           )}
         </div>
 
-        {/* Desktop nav */}
         <Nav className="d-none d-lg-flex ms-4" style={{ gap: "15px" }}>
           <button
             className="btn btn-link p-1 text-danger fw-bold border-2"
@@ -138,7 +137,7 @@ const UserDashboardHeader = () => {
           </button>
         </Nav>
 
-        {/* Right side: Search & profile/signout */}
+        
         <div className="d-flex align-items-center" style={{ gap: "12px" }}>
           {/* Mobile search icon */}
           {windowWidth < 992 && !showSearch && (

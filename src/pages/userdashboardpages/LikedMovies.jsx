@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import HeaderSignOutBar from "../../components/HeaderSignOutBar";
-import PlayTrailer from "../../pages/userdashboardpages/PlayTrailer"
+import PlayTrailer from "../../pages/userdashboardpages/PlayTrailer";
 const LikedMovies = () => {
   const [likedMovies, setLikedMovies] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -81,12 +81,9 @@ const LikedMovies = () => {
                     className="img-fluid rounded"
                     style={{ cursor: "pointer" }}
                   />
- {/* Play trailer button */}
-                <div className="position-absolute top-50 start-50 translate-middle play-btn-wrapper">
-  <button className="play-btn" onClick={() => console.log("Play trailer")}>
-    <PlayTrailer videoUrl={movie.videoUrl} />
-  </button>
-</div>
+                  {/* Play trailer button */}
+
+                  <PlayTrailer videoUrl={movie.videoUrl} />
 
                   {/* Remove button */}
                   <button
@@ -97,7 +94,7 @@ const LikedMovies = () => {
                   </button>
                 </div>
 
-                <p className="text-light mt-2">{movie.title}</p>
+                <p className="text-light mt-2 center">{movie.title}</p>
               </div>
             ))}
           </div>

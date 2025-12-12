@@ -47,7 +47,7 @@ const PlayTrailer = ({ movieId, videoUrl: propVideoUrl }) => {
           backgroundColor: "transparent",
           color: "white",
           borderRadius: "7px",
-          borderColor:"white",
+          borderColor: "white",
           fontSize: "0.9rem",
         }}
         onClick={() => setOpen(true)}

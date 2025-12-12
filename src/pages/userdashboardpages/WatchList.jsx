@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import HeaderSignOutBar from "../../components/HeaderSignOutBar";
+import PlayTrailer from "../../pages/userdashboardpages/PlayTrailer";
+
 const WatchListPage = () => {
   const [watchlist, setWatchlist] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -72,30 +74,36 @@ const WatchListPage = () => {
         {watchlist.length === 0 ? (
           <p className="text-secondary">No items in your watchlist.</p>
         ) : (
-          <div className="row">
-            {watchlist.map((item) => (
-              <div key={item.tmdbId} className="col-6 col-md-3 col-lg-2 mb-4">
-                <div className="position-relative">
-                  <img
-                    src={item.poster}
-                    alt={item.title}
-                    className="img-fluid rounded"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => navigate(`/know-more/${item.tmdbId}`)}
-                  />
+          <div>
+            <div className="row">
+              {watchlist.map((item) => (
+                <div key={item.tmdbId} className="col-6 col-md-3 col-lg-2 mb-4">
+                  <div className="position-relative">
+                    <img
+                      src={item.poster}
+                      alt={item.title}
+                      className="img-fluid rounded"
+                      style={{ cursor: "pointer" }}
+                    />
 
-                  {/* Remove */}
-                  <button
-                    className="btn btn-danger btn-sm position-absolute top-0 end-0 m-1"
-                    onClick={() => removeItem(item.tmdbId)}
-                  >
-                    ×
-                  </button>
+                    <PlayTrailer
+                      movieId={item.tmdbId}
+                      videoUrl={item.videoUrl}
+                    />
+
+                    {/* Remove */}
+                    <button
+                      className="btn btn-danger btn-sm position-absolute top-0 end-0 m-1"
+                      onClick={() => removeItem(item.tmdbId)}
+                    >
+                      ×
+                    </button>
+                  </div>
+
+                  <p className="text-light mt-2 center">{item.title}</p>
                 </div>
-
-                <p className="text-light mt-2">{item.title}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         )}
       </div>
