@@ -44,14 +44,15 @@ const PlayTrailer = ({ movieId, videoUrl: propVideoUrl }) => {
       <button
         className="btn btn-light d-flex align-items-center gap-2 fw-bold px-3 py-2"
         style={{
-          backgroundColor: "rgba(255,255,255,0.85)",
-          color: "#000",
-          borderRadius: "4px",
+          backgroundColor: "transparent",
+          color: "white",
+          borderRadius: "7px",
+          borderColor:"white",
           fontSize: "0.9rem",
         }}
         onClick={() => setOpen(true)}
       >
-        <FaPlay />
+        <FaPlay className=" fa-2x" />
         Play Trailer
       </button>
 

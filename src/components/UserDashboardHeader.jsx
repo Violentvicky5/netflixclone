@@ -77,7 +77,7 @@ const UserDashboardHeader = () => {
     windowWidth < 576 ? "sm" : windowWidth < 768 ? "sm" : "md";
 
   return (
-    <Navbar variant="dark" style={{ backgroundColor: "rgba(0,0,0,0.3)" }}>
+    <Navbar   className="customNav">
       <Container className="d-flex justify-content-between align-items-center">
         {/* Left side: Logo & mobile dropdown */}
         <div className="d-flex align-items-center" style={{ gap: "10px" }}>
@@ -123,14 +123,14 @@ const UserDashboardHeader = () => {
             Home
           </button>
           <button
-            className="btn btn-link text-black p-1 para fw-bold border-2"
+            className="btn btn-link p-1 para fw-bold border-2"
             style={{ textDecoration: "none" }}
             onClick={() => navigate("/LikedMovies")}
           >
             Liked Movies
           </button>
           <button
-            className="btn btn-link text-black p-0 para fw-bold"
+            className="btn btn-link  p-0 para fw-bold"
             style={{ textDecoration: "none" }}
             onClick={() => navigate("/WatchList")}
           >
@@ -144,7 +144,7 @@ const UserDashboardHeader = () => {
           {windowWidth < 992 && !showSearch && (
             <i
               className="fa fa-search"
-              style={{ fontSize: "1.2rem", cursor: "pointer", color: "black" }}
+              style={{ fontSize: "1.2rem", cursor: "pointer", color: "grey" }}
               onClick={() => setShowSearch(true)}
             ></i>
           )}
@@ -168,12 +168,13 @@ const UserDashboardHeader = () => {
               />
               {showSearch && windowWidth < 992 && (
                 <i
-                  className="fa fa-times position-absolute"
+                  className="fa fa-times position-absolute "
                   style={{
                     right: "10px",
                     top: "50%",
                     transform: "translateY(-50%)",
                     cursor: "pointer",
+                    
                   }}
                   onClick={() => setShowSearch(false)}
                 ></i>

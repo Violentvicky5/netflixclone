@@ -82,9 +82,12 @@ const LikedMovies = () => {
                     style={{ cursor: "pointer" }}
                   />
  {/* Play trailer button */}
-                  <div className="position-absolute bottom-0 start- m-5">
-                    <PlayTrailer videoUrl={movie.videoUrl} /> {/* pass videoUrl directly */}
-                  </div>
+                <div className="position-absolute top-50 start-50 translate-middle play-btn-wrapper">
+  <button className="play-btn" onClick={() => console.log("Play trailer")}>
+    <PlayTrailer videoUrl={movie.videoUrl} />
+  </button>
+</div>
+
                   {/* Remove button */}
                   <button
                     className="btn btn-danger btn-sm position-absolute top-0 end-0 m-1"

@@ -65,13 +65,13 @@ const UserDashboardBanner = () => {
           className="banner-bg d-flex flex-column justify-content-end text-start p-4"
           style={{
             backgroundImage: `url(${backdropUrl})`,
-            backgroundSize: "cover",
+            backgroundSize: "fill",
             backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
             position: "relative",
             color: "#fff",
             width: "100%",
-            minHeight: "85vh",
+            minHeight: "60vh",
             transition: "background-image 1s ease-in-out",
           }}
         >
