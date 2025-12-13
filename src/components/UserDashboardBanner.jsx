@@ -4,17 +4,14 @@ import UserDashboardHeader from "./UserDashboardHeader";
 import logo from "../assets/logo.png";
 import { SearchContext } from "../context/SearchContext";
 import KnowMoreOverlay from "../pages/userdashboardpages/KnowMoreOverlay";
-import PlayTrailer from "../pages/userdashboardpages/PlayTrailer";
 const UserDashboardBanner = () => {
   const [showMovieId, setShowMovieId] = useState(null);
   const [movies, setMovies] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isMuted, setIsMuted] = useState(true);
   const { searchTerm, searchResults } = useContext(SearchContext);
 
   const API = import.meta.env.VITE_BACKEND_URL;
 
-  const toggleMute = () => setIsMuted(!isMuted);
 
   // Fetch movies for banner
   useEffect(() => {
@@ -109,7 +106,7 @@ const UserDashboardBanner = () => {
                 className="d-flex flex-row flex-wrap"
                 style={{ gap: "0.5rem" }}
               >
-                <PlayTrailer movieId={movie.tmdbId} />
+              
 
                 <Button
                   variant="secondary"
@@ -125,29 +122,7 @@ const UserDashboardBanner = () => {
                 className="d-flex align-items-center mt-2 mt-md-0"
                 style={{ gap: "10px" }}
               >
-                <div
-                  onClick={toggleMute}
-                  className="d-flex justify-content-center align-items-center"
-                  style={{
-                    width: "35px",
-                    height: "35px",
-                    minWidth: "30px",
-                    minHeight: "30px",
-                    background: "rgba(0,0,0,0.3)",
-                    borderRadius: "50%",
-                    color: "#fff",
-                    cursor: "pointer",
-                  }}
-                >
-                  <i
-                    className={
-                      isMuted
-                        ? "fa-solid fa-volume-xmark"
-                        : "fa-solid fa-volume-high"
-                    }
-                    style={{ fontSize: "1rem" }}
-                  ></i>
-                </div>
+                
 
                 <div
                   className="d-flex align-items-center px-2 py-1"
