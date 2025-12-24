@@ -42,7 +42,7 @@ const LearnMore = () => {
                 "<b>Email Sent Successfully</b>", it may be due to your email provider 
                 blocking or delaying messages.
                 <br />
-                <b>Please try registering with another email ID.</b>
+                <b>Please try registering with another email ID or wait for a while you receive the Email.</b>
               </p>
             </div>
           </div>

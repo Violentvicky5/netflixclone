@@ -43,7 +43,7 @@ const App = () => {
         <Route path="/ForgotPassword" element={<ForgotPassword />} />
         <Route path="/AdminLoginPage" element={<AdminLoginPage />} />
         <Route path="/DashboardLayout" element={<DashboardLayout />} />
-               <Route path="/LearnMore" element={<LearnMore />} />
+        <Route path="/LearnMore" element={<LearnMore />} />
 
        
         {/* ADMIN DASHBOARD WITH NESTED ROUTES */}

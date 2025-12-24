@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { FaPlay, FaTimes } from "react-icons/fa";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 const PlayTrailer = ({ movieId, videoUrl: propVideoUrl }) => {
   const [open, setOpen] = useState(false);

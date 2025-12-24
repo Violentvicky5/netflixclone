@@ -4,6 +4,7 @@ import UserDashboardHeader from "./UserDashboardHeader";
 import logo from "../assets/logo.png";
 import { SearchContext } from "../context/SearchContext";
 import KnowMoreOverlay from "../pages/userdashboardpages/KnowMoreOverlay";
+
 const UserDashboardBanner = () => {
   const [showMovieId, setShowMovieId] = useState(null);
   const [movies, setMovies] = useState([]);
