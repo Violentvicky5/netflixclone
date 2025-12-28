@@ -10,7 +10,7 @@ import {
   Pie,
   Cell,
 } from "recharts";
-
+import { useNavigate } from "react-router-dom";
 const AdminHome = () => {
   const API = import.meta.env.VITE_BACKEND_URL;
 
@@ -20,16 +20,33 @@ const AdminHome = () => {
     notVerifiedUsers: 0,
     delUser: 0,
     totalMovies: 0,
-    categories: {}, // e.g., { popular: 5, toprated: 10, upcoming: 3 }
+    categories: {}, //{ popular: 5, toprated: 10, upcoming: 3 }
   });
 
   const fetchStats = async () => {
     try {
-      const res = await fetch(`${API}/api/admin/stats`);
+      const token = localStorage.getItem("adminToken");
+      if (!token) {
+        navigate("/AdminLoginPage"); // Redirect if no token
+        return;
+      }
+
+      const res = await fetch(`${API}/api/admin/stats`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (!res.ok) {
+        // Token might be invalid/expired
+        localStorage.removeItem("adminToken");
+        navigate("/AdminLoginPage");
+        return;
+      }
+
       const data = await res.json();
       setStats(data);
     } catch (err) {
       console.error("Failed to fetch stats", err);
+      navigate("/AdminLoginPage"); // Redirect on error
     }
   };
 

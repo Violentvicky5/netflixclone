@@ -12,10 +12,10 @@ import WelcomePage from "./pages/WelcomePage";
 import Userdashboard from "./pages/Userdashboard";
 import ForgotPassword from "./pages/ForgotPassword";
 import LearnMore from "./pages/LearnMore";
-
+import ProtectedRoute from "./pages/userdashboardpages/ProtectedRoute";
 import AdminLoginPage from "./pages/AdminLoginPage";
 import DashboardLayout from "./pages/DashboardLayout";
-
+import AdminProtectedRoute from "./pages/admin/AdminProtectedRoute";
 // Admin children
 import AdminHome from "./pages/admin/AdminHome";
 import UserManagement from "./pages/admin/UserManagement";
@@ -39,15 +39,17 @@ const App = () => {
         <Route path="/ChoosePlan" element={<ChoosePlan />} />
         <Route path="/Payment" element={<Payment />} />
         <Route path="/WelcomePage" element={<WelcomePage />} />
-        <Route path="/Userdashboard" element={<Userdashboard />} />
+        <Route path="/Userdashboard" element={<ProtectedRoute><Userdashboard /></ProtectedRoute>} />
         <Route path="/ForgotPassword" element={<ForgotPassword />} />
         <Route path="/AdminLoginPage" element={<AdminLoginPage />} />
-        <Route path="/DashboardLayout" element={<DashboardLayout />} />
         <Route path="/LearnMore" element={<LearnMore />} />
 
        
         {/* ADMIN DASHBOARD WITH NESTED ROUTES */}
-        <Route path="/admin" element={<DashboardLayout />}>
+        <Route path="/admin" element={<AdminProtectedRoute>
+                                        <DashboardLayout />
+                                        </AdminProtectedRoute>
+                                      }>
           <Route index element={<AdminHome />} /> {/* /admin */}
           <Route path="users" element={<UserManagement />} />{" "}
           {/* /admin/users */}

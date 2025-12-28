@@ -17,30 +17,39 @@ const AdminLoginPage = () => {
     setFormdata({ ...formdata, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    let valid = true;
+  setEmailError("");
+  setPasswordError("");
 
-   
-    setEmailError("");
-    setPasswordError("");
+  try {
+    const res = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/admin/signin`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formdata),
+      }
+    );
 
-   
-    if (formdata.email !== Oemail) {
-      setEmailError("Please enter correct email");
-      valid = false;
+    const data = await res.json();
+
+    if (!res.ok) {
+      setEmailError("Invalid admin credentials");
+      setPasswordError("Invalid admin credentials");
+      return;
     }
 
-    if (formdata.password !== Opassword) {
-      setPasswordError("Please enter correct password");
-      valid = false;
-    }
+    // store admin token
+    localStorage.setItem("adminToken", data.token);
 
-    if (!valid) return;
-
-    navigate("/DashboardLayout");
-  };
+    navigate("/admin");
+  } catch (err) {
+    setEmailError("Server error");
+    setPasswordError("Server error");
+  }
+};
 
   return (
     <div
